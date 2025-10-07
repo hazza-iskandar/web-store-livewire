@@ -10,11 +10,14 @@
 
 <body>
 
-    @include('partials.navbar')
+    <x-navmenu/>
 
     {{ $slot }}
 
+    <x-footer />
     @livewireScripts
+
+    @include('partials.footer')
 </body>
 
 </html>
