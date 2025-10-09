@@ -8,13 +8,13 @@
                     <div class="absolute inset-0 bg-[#00000029] px-6 md:px-10 flex flex-col justify-end pb-10">
 
                         <div class="w-80 md:w-200 text-start line-clamp-3 mb-20 lg:mb-30">
-                            <p class="font-bold text-sm md:text-lg ">category.</p>
+                            <p class="font-bold text-sm md:text-lg text-primary">category.</p>
                             <h3 class="font-bold text-2xl lg:text-4xl ">Lorem, ipsum Lorem, ipsum dolor Lorem
                                 ipsum dolor sit
                                 amet consectetur adipisicing elit. Voluptates</h3>
                         </div>
                         <a href=""
-                            class="text-white text-center w-40 bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Lihat
+                            class="text-white text-center w-40 bg-primary transition-all hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Lihat
                             Produk <i class="fa-solid fa-bag-shopping"></i></a>
 
                     </div>
@@ -162,7 +162,7 @@
         <div class="heading-title">
             <h3 class="">All Products</h3>
             <div class="flex justify-between items-center">
-                <p class="text-heading font-bold mt-3 text-2xl">Semua Produk</p>
+                <p class="text-heading font-bold mt-3 text-2xl">Semua Produk Kami</p>
             </div>
         </div>
 
@@ -175,6 +175,8 @@
                                 <img class="rounded-t-lg"
                                     src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
                                     alt="" loading="lazy" />
+                                <span
+                                    class="absolute top-4 bg-primary text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-r-md ">Baru</span>
                                 <form action="" method="POST">
                                     @csrf
                                     <input type="hidden" name="produk_id" value="">
@@ -435,5 +437,5 @@
         </div>
     </section>
 
-    
+
 </div>

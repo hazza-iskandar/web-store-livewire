@@ -71,7 +71,7 @@ var swiper = new Swiper(".allProduct1", {
     spaceBetween: 10,
     loop: true,
     autoplay: {
-        delay: 5000,
+        delay: 4000,
         disableOnInteraction: false,
     },
     breakpoints: {
@@ -111,5 +111,19 @@ var swiper = new Swiper(".allProduct2", {
             slidesPerView: 4,
             spaceBetween: 20,
         },
+    },
+});
+
+var swiper = new Swiper(".showProduct", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    loop: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        dynamicBullets: true,
     },
 });

@@ -8,4 +8,4 @@
 </script>
 
 <script src="{{ asset('assets/js/swiper/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('assets/js/swiper/script.js') }}"></script>
+<script src="{{ asset('assets/js/swiper/custom-swiper.js') }}"></script>

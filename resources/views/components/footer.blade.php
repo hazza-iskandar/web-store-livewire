@@ -1,10 +1,12 @@
-<footer class="bg-slate-800">
+<footer class="bg-slate-800 mt-10">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
                 <a href="https://flowbite.com/" class="flex items-center">
-                    {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" /> --}}
-                    <span class="self-center text-2xl text-white font-semibold whitespace-nowrap">Zaa-Store</span>
+                    <img src="{{ asset('assets/images/myLogo.png') }}" class="size-10 md:size-14 me-1 md:me-2"
+                        alt="Logo" />
+                    <span
+                        class="font-heading text-white self-center text-2xl font-semibold whitespace-nowrap">{{ config('app.name') }}</span>
                 </a>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
