@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-#[\Livewire\Attributes\Title('Home')]
 #[\Livewire\Attributes\Layout('components.layouts.app')]
 class Home extends Component
 {

@@ -3,7 +3,7 @@
 
 <head>
     @include('partials.head')
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <title>{{ $title ?? config('app.name') }}</title>
 
     @livewireStyles
 </head>

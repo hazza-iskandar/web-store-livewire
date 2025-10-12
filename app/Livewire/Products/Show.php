@@ -2,12 +2,46 @@
 
 namespace App\Livewire\Products;
 
+use App\Models\Product;
 use Livewire\Component;
 
+#[\Livewire\Attributes\Layout('components.layouts.app')]
 class Show extends Component
 {
+    public $slug, $product, $images, $thumbnail;
+    public $search = '';
+
+    public function mount(String $slug)
+    {
+        $this->slug = $slug;
+        $this->product = Product::with('category')->where('slug', $slug)->first();
+        $this->images = json_decode($this->product->images, true) ?? null;
+
+        $this->thumbnail = !empty($this->product->thumbnail)
+            ? asset("storage/" . $this->product->thumbnail)
+            : asset('assets/images/images404.png');
+    }
+
     public function render()
     {
-        return view('livewire.products.show');
+        if (!$this->product) {
+            return view('livewire.404');
+        }
+
+        $products = Product::with(['category'])
+        ->where('category_id', $this->product->category_id)
+        ->where('id', '!=', $this->product->id)
+        ->limit(8)
+        ->get();
+
+        $products->transform(function ($product) {
+            $product->thumbnail = !empty($product->thumbnail)
+                ? asset("storage/" . $product->thumbnail)
+                : asset('assets/images/images404.png');
+            return $product;
+        });
+
+        return view('livewire.products.show', compact('products'))
+                ->title($this->product->title);
     }
 }

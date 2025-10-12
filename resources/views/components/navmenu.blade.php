@@ -11,7 +11,7 @@
             <ul
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
                 <x-navlink :active="request()->routeIs('home')" :href="route('home')">Home</x-navlink>
-                <x-navlink :active="request()->routeIs('products')" :href="route('products')">Products</x-navlink>
+                <x-navlink :active="request()->routeIs('products.*')" :href="route('products.index')">Products</x-navlink>
                 {{-- <x-navlink :active="request()->routeIs('about')" :href="route('about')">Categories</x-navlink>
                 <x-navlink :active="request()->routeIs('contact')" :href="route('contact')">Categories</x-navlink> --}}
                 <x-navlink :active="request()->routeIs('auth.*')" :href="route('auth.signUp')">Sign-Up</x-navlink>
@@ -33,7 +33,7 @@
                     </div>
                     <input type="search" id="default-search"
                         class="hidden md:block w-full p-3 ps-10 text-sm focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                        placeholder="Search Products..." required />
+                        placeholder="Search Products..." wire:model="search" required />
                 </div>
             </form>
             {{-- keranjang --}}
