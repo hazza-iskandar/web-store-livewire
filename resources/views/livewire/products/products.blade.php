@@ -1,4 +1,7 @@
 <div>
+    {{-- notif --}}
+    <x-notifAlert />
+
     <section class="my-4 flex">
         <div class="container">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -25,21 +28,27 @@
                 </div>
 
                 <div class="mt-3 md:w-100 w-full">
-                    <form class="max-w-lg mx-auto">
+                    {{-- <h2>Search:</h2> --}}
+                    <div class="max-w-lg mx-auto">
                         <div class="flex">
                             <button id="dropdown-button" data-dropdown-toggle="dropdown"
                                 class="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100"
-                                type="button">Categories <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                type="button">{{ isset($categorySelected) ? $categorySelected : 'Categories' }} <svg
+                                    class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2" d="m1 1 4 4 4-4" />
                                 </svg></button>
                             <div id="dropdown"
                                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
                                 <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdown-button">
+                                    <li>
+                                        <a href="{{ route('products.index') }}" wire:navigate wire:click="resetCategory"
+                                            class="inline-flex w-full px-4 py-2 hover:bg-gray-100">Semua Kategori</a>
+                                    </li>
                                     @foreach ($categories as $category)
                                         <li>
-                                            <button type="button"
+                                            <button type="button" wire:click="searcCategory('{{ $category->slug }}')"
                                                 class="inline-flex w-full px-4 py-2 hover:bg-gray-100">{{ $category->title }}</button>
                                         </li>
                                     @endforeach
@@ -48,15 +57,15 @@
                             <div class="relative w-full">
                                 <input type="search" id="search-dropdown"
                                     class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-primary outline-none focus:border-primary"
-                                    placeholder="Cari Product" wire:model.live.debounce.150ms="search" required />
-                                <button type="submit"
+                                    placeholder="Cari Product" wire:model.live.debounce.300ms="search" required />
+                                <button type="button"
                                     class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-primary rounded-e-lg border border-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                     <span class="sr-only">Search</span>
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 

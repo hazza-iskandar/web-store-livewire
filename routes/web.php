@@ -12,7 +12,6 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::get('/', \App\Livewire\Home::class)->name('home');
 Route::get('/categories', \App\Livewire\Products\Products::class)->name('categories');
 Route::get('/cart', \App\Livewire\Cart\Cart::class)->name('cart');
-Route::get('/cart', \App\Livewire\Cart\Cart::class)->name('cart');
 
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', \App\Livewire\Products\Products::class)->name('index');

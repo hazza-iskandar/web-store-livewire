@@ -3,13 +3,26 @@
 namespace App\Livewire\Products;
 
 use App\Models\Product;
+use App\Services\CartService;
 use Livewire\Component;
 
-#[\Livewire\Attributes\Layout('components.layouts.app')]
+// #[\Livewire\Attributes\Layout('components.layouts.app')]
 class Show extends Component
 {
     public $slug, $product, $images, $thumbnail;
     public $search = '';
+
+    // fitur keranjang di ambil dari service
+    protected $cartService;
+    public function boot(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+    public function addToCart($productId)
+    {
+        $result = $this->cartService->addToCart($productId);
+        $this->dispatch('notify', status: $result['status'] ? 'success' : 'failed', message: $result['message']);
+    }
 
     public function mount(String $slug)
     {
@@ -29,10 +42,10 @@ class Show extends Component
         }
 
         $products = Product::with(['category'])
-        ->where('category_id', $this->product->category_id)
-        ->where('id', '!=', $this->product->id)
-        ->limit(8)
-        ->get();
+            ->where('category_id', $this->product->category_id)
+            ->where('id', '!=', $this->product->id)
+            ->limit(8)
+            ->get();
 
         $products->transform(function ($product) {
             $product->thumbnail = !empty($product->thumbnail)
@@ -42,6 +55,6 @@ class Show extends Component
         });
 
         return view('livewire.products.show', compact('products'))
-                ->title($this->product->title);
+            ->title($this->product->title);
     }
 }

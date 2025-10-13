@@ -19,6 +19,29 @@
     --color-primary: #db4444;
     --color-secondary: #f5f5f5;
     --color-myGreen: #00ff66;
+
+    /* animasi alert */
+    --animate-alert1 : push-in .4s ease-in-out, push-out .4s ease-in-out 2.5s forwards;
+    @keyframes push-in {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes push-out {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
 }
 
 @layer components {
@@ -48,7 +71,6 @@
     .section {
         @apply mt-25 w-full;
     }
-    
 }
 
 /* override container */
@@ -69,9 +91,9 @@ input[type="number"] {
 }
 /* Hapus scrollbar tapi tetap bisa scroll */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* untuk IE dan Edge lama */
-  scrollbar-width: none;     /* untuk Firefox */
+    -ms-overflow-style: none; /* untuk IE dan Edge lama */
+    scrollbar-width: none; /* untuk Firefox */
 }
