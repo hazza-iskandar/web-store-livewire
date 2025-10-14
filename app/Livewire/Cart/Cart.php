@@ -60,13 +60,6 @@ class Cart extends Component
         // $productCarts = CartModel::where('user_id', Auth::user()->id());
         $productCarts = CartModel::with('product')->where('user_id', 1)->get(); // untuk testing aja dulu;
 
-        $productCarts->transform(function ($cart) {
-            $cart->product->thumbnail = !empty($cart->product->thumbnail)
-                ?  asset('storage/' . $cart->product->thumbnail)
-                : asset('assets/images/images404.png');
-            return $cart;
-        });
-
         // total semua barang
         $this->total_price_all = $productCarts->sum('total_price');
 

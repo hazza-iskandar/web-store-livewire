@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Services\CartService;
 use Livewire\Component;
 
-// #[\Livewire\Attributes\Layout('components.layouts.app')]
+#[\Livewire\Attributes\Layout('components.layouts.app')]
 class Show extends Component
 {
     public $slug, $product, $images, $thumbnail;
@@ -46,13 +46,6 @@ class Show extends Component
             ->where('id', '!=', $this->product->id)
             ->limit(8)
             ->get();
-
-        $products->transform(function ($product) {
-            $product->thumbnail = !empty($product->thumbnail)
-                ? asset("storage/" . $product->thumbnail)
-                : asset('assets/images/images404.png');
-            return $product;
-        });
 
         return view('livewire.products.show', compact('products'))
             ->title($this->product->title);

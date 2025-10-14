@@ -1,4 +1,5 @@
 <div class="container">
+    <x-notifAlert />
     <div class="mt-2 w-full h-130 shadow-md">
         <div class="swiper jumbtron rounded-xl">
             <div class="swiper-wrapper">
@@ -45,42 +46,18 @@
         </div>
 
         <div class="mt-10">
-            <div class="swiper newProduct">
+            <div class="swiper newProduct" wire:ignore>
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-
-                                <span
-                                    class="absolute top-4 bg-primary text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-r-md ">Baru</span>
-
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach ($newProducts as $newProduct)
+                        <div class="swiper-slide">
+                            <x-productCard :product="$newProduct" />
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
             <div class="mt-8 q flex justify-center">
-                <a href=""
+                <a href="{{ route('products.index') }}" wire:navigate
                     class="text-white inline-block text-center w-60 bg-primary hover:bg-[#a22626] focus:ring-4 focus:ring-primary rounded-sm  md:text-[15px] text-sm  font-semibold px-3 py-1.5 md:px-5 md:py-2.5 focus:outline-none">Lihat
                     Semua Produk</a>
             </div>
@@ -109,14 +86,16 @@
         </div>
 
         <div class="mt-10">
-            <div class="swiper category">
+            <div class="swiper category" wire:ignore>
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide ">
-                        <a href=""
-                            class="inline-block w-full text-center border-2 border-slate-400 rounded-sm p-2 hover:border-primary hover:bg-primary hover:text-white transition-all">
-                            <p>Phones</p>
-                        </a>
-                    </div>
+                    @foreach ($categories as $category)
+                        <div class="swiper-slide ">
+                            <a href="{{ route('products.index', ['category' => $category->slug]) }}"
+                                class="inline-block w-full text-center border-2 border-slate-400 rounded-sm p-2 hover:border-primary hover:bg-primary hover:text-white transition-all">
+                                <p>{{ $category->title }}</p>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -169,267 +148,25 @@
         <div class="mt-10">
             <div class="swiper allProduct1">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <span
-                                    class="absolute top-4 bg-primary text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-r-md ">Baru</span>
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach ($allProduct1 as $product)
+                        <div class="swiper-slide">
+                            <x-productCard :product="$product" />
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="swiper allProduct2 mt-5">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="max-w-sm bg-white rounded-lg">
-                            <div class="relative group overflow-hidden">
-                                <img class="rounded-t-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                                    alt="" loading="lazy" />
-                                <form action="" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produk_id" value="">
-                                    <button
-                                        class="absolute z-10 transition-all duration-500 group-hover:bottom-0 group-hover:opacity-100 opacity-0 -bottom-10 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-                                        Tambah Ke Keranjang
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="pt-2">
-                                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900">Game Pad
-                                </h5>
-                                <p class="text-primary text-sm">Rp. 3.000.000</p>
-                                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Explicabo, dolor!</p>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach ($allProduct2 as $product)
+                        <div class="swiper-slide">
+                            <x-productCard :product="$product" />
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
             <div class="mt-8 q flex justify-center">
-                <a href=""
+                <a href="{{ route('products.index') }}" wire:navigate
                     class="text-white inline-block text-center w-60 bg-primary hover:bg-[#a22626] focus:ring-4 focus:ring-primary rounded-sm  md:text-[15px] text-sm  font-semibold px-3 py-1.5 md:px-5 md:py-2.5 focus:outline-none">Lihat
                     Semua Produk</a>
             </div>

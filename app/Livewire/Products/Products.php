@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Products;
 
-use App\Models\Cart;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
@@ -10,7 +9,6 @@ use App\Services\CartService;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
-use Psy\CodeCleaner\AssignThisVariablePass;
 
 #[\Livewire\Attributes\Title('Products')]
 #[\Livewire\Attributes\Layout('components.layouts.app')]
@@ -64,14 +62,6 @@ class Products extends Component
                 });
             })
             ->paginate(8);
-
-        // mapping/transform isi thumbnail
-        $products->transform(function ($product) {
-            $product->thumbnail = !empty($product->thumbnail)
-                ? asset("storage/" . $product->thumbnail)
-                : asset('assets/images/images404.png');
-            return $product;
-        });
 
         $categories = Category::get();
 

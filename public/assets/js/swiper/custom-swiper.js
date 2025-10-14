@@ -1,5 +1,6 @@
 var swiper = new Swiper(".jumbtron", {
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,
@@ -14,8 +15,9 @@ var swiper = new Swiper(".newProduct", {
     slidesPerView: 2,
     spaceBetween: 10,
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
     autoplay: {
-        delay: 5000,
+        delay: 4000,
         disableOnInteraction: false,
     },
     navigation: {
@@ -42,6 +44,7 @@ var swiper = new Swiper(".category", {
     slidesPerView: 3,
     spaceBetween: 10,
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,
@@ -70,8 +73,10 @@ var swiper = new Swiper(".allProduct1", {
     slidesPerView: 2,
     spaceBetween: 10,
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
+    speed:2000, // kecepatan auto play
     autoplay: {
-        delay: 4000,
+        delay: 0,
         disableOnInteraction: false,
     },
     breakpoints: {
@@ -94,9 +99,12 @@ var swiper = new Swiper(".allProduct2", {
     slidesPerView: 2,
     spaceBetween: 10,
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
+    speed:2000, // kecepatan auto play
     autoplay: {
-        delay: 5000,
+        delay: 0,
         disableOnInteraction: false,
+        reverseDirection:true
     },
     breakpoints: {
         640: {
@@ -118,6 +126,7 @@ var swiper = new Swiper(".showProduct", {
     spaceBetween: 30,
     centeredSlides: true,
     loop: true,
+    touchStartPreventDefault: false, // untukk livewire
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,

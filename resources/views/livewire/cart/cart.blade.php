@@ -53,7 +53,7 @@
                         @forelse ($productCarts as $cart)
                             <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
                                 <td class="p-4">
-                                    <img src="{{ $cart->product->thumbnail }}"
+                                    <img src="{{ thumbnailCond($cart->product->thumbnail) }}"
                                         alt="" loading="lazy" class="size-30 md:h-full object-cover">
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-gray-900">
