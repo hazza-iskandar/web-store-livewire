@@ -48,7 +48,6 @@ class SignIn extends Component
             $this->redirectRoute('home', navigate:true);
         }else{
             $this->dispatch('notify', status:'failed', message:"login gagal silahkan ulangi");
-            $this->redirectRoute('login', navigate:true);
         }
     }
 

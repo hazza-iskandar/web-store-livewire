@@ -32,7 +32,8 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-8 group">
-                    <input type="password" id="floating_password" wire:model="password" wire:focus="resetField('password')"
+                    <input type="password" id="floating_password" wire:model="password"
+                        wire:focus="resetField('password')"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-primary peer"
                         placeholder=" " required />
                     <label for="floating_password"
@@ -42,9 +43,9 @@
                                 class="font-medium">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" wire:loading.attr="disabled"
+                <button type="submit" wire:loading.attr="disabled" wire:loading.class="bg-[#980e0e]"
                     class="text-white bg-primary hover:bg-[#980e0e] focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-sm text-[16px] w-full flex justify-center gap-2 px-5 py-3.5 text-center cursor-pointer">
-                    <span wire:loading.class="bg-[#980e0e]">Buat Akun</span>
+                    <span>Buat Akun</span>
 
 
                     <div role="status" wire:loading wire:target="register">

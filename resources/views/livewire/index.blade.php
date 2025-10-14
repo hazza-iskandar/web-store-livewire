@@ -71,17 +71,6 @@
             <h3 class="">Categories</h3>
             <div class="flex justify-between items-center">
                 <p class="text-heading font-bold mt-3 text-2xl">Kategori Produk</p>
-
-                <div class="flex gap-2">
-                    <div
-                        class="button-prev w-10 h-10 bg-secondary hover:bg-slate-700 hover:text-white cursor-pointer transition-all flex justify-center items-center rounded-full">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </div>
-                    <div
-                        class="button-next w-10 h-10 bg-secondary hover:bg-slate-700 hover:text-white cursor-pointer transition-all flex justify-center items-center rounded-full">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </div>
             </div>
         </div>
 

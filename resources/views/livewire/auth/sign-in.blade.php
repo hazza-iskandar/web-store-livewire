@@ -37,9 +37,9 @@
                     <label for="checkbox-1" class="ms-2 text-sm font-medium text-gray-400">Ingat Saya</label>
                 </div>
 
-                <button type="submit" wire:loading.attr="disabled"
+                <button type="submit" wire:loading.attr="disabled" wire:loading.class="bg-[#980e0e]"
                     class="text-white bg-primary hover:bg-[#980e0e] focus:ring-4 mt-6 focus:outline-none focus:ring-primary font-medium rounded-sm text-[16px] w-full flex justify-center gap-2 px-5 py-3.5 text-center cursor-pointer">
-                    <span wire:loading.class="bg-[#980e0e]">Buat Akun</span>
+                    <span>Buat Akun</span>
 
 
                     <div role="status" wire:loading wire:target="autenticate">

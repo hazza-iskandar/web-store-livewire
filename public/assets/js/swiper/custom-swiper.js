@@ -49,10 +49,6 @@ var swiper = new Swiper(".category", {
         delay: 5000,
         disableOnInteraction: false,
     },
-    navigation: {
-        nextEl: ".button-next",
-        prevEl: ".button-prev",
-    },
     breakpoints: {
         640: {
             slidesPerView: 4,

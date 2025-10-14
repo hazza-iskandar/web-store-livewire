@@ -82,7 +82,7 @@
                     <div id="dropdownInformation"
                         class="z-10 hidden bg-[#00000058] divide-y divide-gray-100 backdrop-blur-3xl rounded-lg shadow-sm w-44">
                         <div class="px-4 py-3 text-sm text-gray-100">
-                            <div>{{ auth()->user()->username ?? '' }}</div>
+                            <div class="truncate">{{ auth()->user()->username ?? '' }}</div>
                             <div class="font-medium truncate">{{ auth()->user()->email ?? '' }}</div>
                         </div>
                         <ul class="py-2 text-sm text-gray-100" aria-labelledby="dropdownInformationButton">
