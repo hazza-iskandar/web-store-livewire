@@ -22,8 +22,8 @@
         </div>
     </a>
 
-    <button type="" wire:click="addToCart('{{ $product->id }}')"
-        class="absolute z-10 transition-all duration-500 group-hover:bottom-28 group-hover:opacity-100 opacity-0 bottom-25 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
+    <button type="button" wire:click="addToCart('{{ $product->id }}')"
+        class="hidden md:block absolute z-10 transition-all duration-500 group-hover:bottom-28 group-hover:opacity-100 opacity-0 bottom-25 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
         Tambah Ke Keranjang
     </button>
 </div>

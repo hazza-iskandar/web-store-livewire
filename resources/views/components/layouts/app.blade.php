@@ -10,7 +10,8 @@
 
 <body>
 
-    <x-navmenu />
+    {{-- <x-navmenu /> --}}
+    <livewire:nav-menu />
 
     {{ $slot }}
 

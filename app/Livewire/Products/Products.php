@@ -54,7 +54,7 @@ class Products extends Component
     {
         $products = Product::with('category')
             ->when($this->search, function ($q) {
-                $q->whereAny(['title', 'desc'], 'like', '%' . $this->search . '%');
+                $q->whereAny(['title'], 'like', '%' . $this->search . '%');
             })
             ->when(isset($this->categorySelected), function ($product) { // ketika ada isset kategory maka cari data dari relasi category
                 $product->whereHas('category', function ($q) {

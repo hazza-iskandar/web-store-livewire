@@ -11,4 +11,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/swiper/swiper-bundle.min.css') }}">
 
 {{-- tailwind --}}
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js']) 
+{{-- <link rel="stylesheet" href="{{ asset('build/assets/app-g1f6m9xN.css') }}">
+<script src="{{ asset('build/assets/app-CwsFh6xd.js') }}"></script> --}}

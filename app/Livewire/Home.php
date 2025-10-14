@@ -12,6 +12,7 @@ use Livewire\Component;
 #[\Livewire\Attributes\Title('Zaa Store')]
 class Home extends Component
 {
+    // untuk fitur keranjang
     protected $cartService;
     public function boot(CartService $cartService)
     {
