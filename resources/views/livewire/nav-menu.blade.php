@@ -16,7 +16,9 @@
                     <x-navlink :active="request()->routeIs('products.*')" :href="route('products.index')">Products</x-navlink>
                     {{-- <x-navlink :active="request()->routeIs('about')" :href="route('about')">Categories</x-navlink>
                 <x-navlink :active="request()->routeIs('contact')" :href="route('contact')">Categories</x-navlink> --}}
-                    <x-navlink :active="request()->routeIs('auth.*')" :href="route('auth.signUp')">Sign-Up</x-navlink>
+                    @guest
+                        <x-navlink :active="request()->routeIs('register')" :href="route('register')">Sign-Up</x-navlink>
+                    @endauth
                 </ul>
             </div>
 
@@ -70,40 +72,37 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
 
-                {{-- user --}}
-                <div id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
-                    class="aspect-square p-[6px] bg-primary cursor-pointer grid place-items-center rounded-full">
-                    <i class="fa-regular fa-user text-xl text-white"></i>
-                </div>
-                <!-- Dropdown menu User-->
-                <div id="dropdownInformation"
-                    class="z-10 hidden bg-[#00000058] divide-y divide-gray-100 backdrop-blur-3xl rounded-lg shadow-sm w-44">
-                    <div class="px-4 py-3 text-sm text-gray-100">
-                        <div>Bonnie Green</div>
-                        <div class="font-medium truncate">name@flowbite.com</div>
+                @auth
+                    {{-- user --}}
+                    <div id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
+                        class="aspect-square p-[6px] bg-primary cursor-pointer grid place-items-center rounded-full">
+                        <i class="fa-regular fa-user text-xl text-white"></i>
                     </div>
-                    <ul class="py-2 text-sm text-gray-100" aria-labelledby="dropdownInformationButton">
-                        <li>
-                            <a href="{{ route('dashboard.index') }}"
-                                class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800"
-                                wire:navigate>Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('account.profile') }}"
-                                class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800" wire:navigate>Account</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800">Earnings</a>
-                        </li>
-                    </ul>
-                    <div class="py-2">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-100 hover:text-slate-800">Sign
-                            out</a>
+                    <!-- Dropdown menu User-->
+                    <div id="dropdownInformation"
+                        class="z-10 hidden bg-[#00000058] divide-y divide-gray-100 backdrop-blur-3xl rounded-lg shadow-sm w-44">
+                        <div class="px-4 py-3 text-sm text-gray-100">
+                            <div>{{ auth()->user()->username ?? '' }}</div>
+                            <div class="font-medium truncate">{{ auth()->user()->email ?? '' }}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-100" aria-labelledby="dropdownInformationButton">
+                            <li>
+                                <a href="{{ route('dashboard.index') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800"
+                                    wire:navigate>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('account.profile') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800" wire:navigate>Account</a>
+                            </li>
+                        </ul>
+                        <div class="py-2">
+                            <button wire:click="logout"
+                                class="w-full text-start px-4 py-2 text-sm text-gray-100 hover:bg-gray-100 hover:text-slate-800">Log
+                                Out</button>
+                        </div>
                     </div>
-                </div>
-
+                @endauth
                 <button data-collapse-toggle="navbar-default" type="button"
                     class="inline-flex cursor-pointer items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-gray-200 "
                     aria-controls="navbar-default" aria-expanded="false">

@@ -36,6 +36,11 @@ class Products extends Component
         // ambil fungsi serveice
         $result = $this->cartService->addToCart($produk_id);
 
+        if ($result['status'] === 'eror 404') {
+            return view('livewire.404');
+        } else if ($result['status'] === 'eror 401') {
+            return $this->redirectRoute('login', navigate: true);
+        }
         // nanti data result akan di kirim ke frontend
         $this->dispatch('notify', status: $result['status'] ? 'success' : 'failed',  message: $result['message']);
     }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class CartService
 {
@@ -12,13 +13,21 @@ class CartService
         $product = Product::find($produk_id);
 
         if (!$product) {
-            return view('livewire.404');
+            return [
+                'status' => 'eror 404'
+            ];
+        }
+
+        if(!Auth::check()){
+            return [
+                'status' => 'eror 401' //belum login Unauthorized
+            ];
         }
 
         // ini harus di handle dulu ketika belu login
         $cart = Cart::create([
-            // 'user_id' => Auth::user()->id
-            'user_id' => '1', // untuk testting,
+            'user_id' => Auth::user()->id,
+            // 'user_id' => '1', // untuk testting,
             'product_id' => $produk_id,
             'qty' => '1', // quantity default nya 1 
             'price' => $product->price,

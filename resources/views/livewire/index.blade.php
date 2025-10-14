@@ -1,7 +1,7 @@
 <div class="container">
     <x-notifAlert />
     <div class="mt-2 w-full h-130 shadow-md">
-        <div class="swiper jumbtron rounded-xl">
+        <div class="swiper jumbtron rounded-xl" wire:ignore>
             <div class="swiper-wrapper">
                 <div class="swiper-slide relative">
                     <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt=""
@@ -90,7 +90,7 @@
                 <div class="swiper-wrapper">
                     @foreach ($categories as $category)
                         <div class="swiper-slide ">
-                            <a href="{{ route('products.index', ['category' => $category->slug]) }}"
+                            <a href="{{ route('products.index', ['category' => $category->slug]) }}" wire:navigate
                                 class="inline-block w-full text-center border-2 border-slate-400 rounded-sm p-2 hover:border-primary hover:bg-primary hover:text-white transition-all">
                                 <p>{{ $category->title }}</p>
                             </a>
@@ -146,7 +146,7 @@
         </div>
 
         <div class="mt-10">
-            <div class="swiper allProduct1">
+            <div class="swiper allProduct1" wire:ignore>
                 <div class="swiper-wrapper">
                     @foreach ($allProduct1 as $product)
                         <div class="swiper-slide">
@@ -155,7 +155,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="swiper allProduct2 mt-5">
+            <div class="swiper allProduct2 mt-5" wire:ignore>
                 <div class="swiper-wrapper">
                     @foreach ($allProduct2 as $product)
                         <div class="swiper-slide">

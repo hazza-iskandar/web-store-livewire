@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\Category;
-use App\Models\Product;
-use App\Services\CartService;
 use Carbon\Carbon;
+use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
+use App\Services\CartService;
 
 #[\Livewire\Attributes\Layout('components.layouts.app')]
 #[\Livewire\Attributes\Title('Zaa Store')]
@@ -22,6 +22,12 @@ class Home extends Component
     public function addToCart($productId)
     {
         $result = $this->cartService->addToCart($productId);
+
+        if($result['status'] === 'eror 404'){
+            return view('livewire.404');
+        }else if($result['status'] === 'eror 401'){
+            return $this->redirectRoute('login', navigate:true);
+        }
 
         $this->dispatch('notify', status:$result['status'] ? 'success' : 'failed', message:$result['message']);
     }

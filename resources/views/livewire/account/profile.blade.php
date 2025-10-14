@@ -7,7 +7,7 @@
                         <nav class="flex mt-2" aria-label="Breadcrumb">
                             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                                 <li class="inline-flex items-center">
-                                    <a href="{{ route('home') }}"
+                                    <a href="{{ route('home') }}" wire:navigate
                                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary"
                                         wire:navigate>
                                         <i class="fa-solid fa-house me-2"></i>
@@ -24,16 +24,18 @@
                         </nav>
                     </div>
 
-                    <p class="text-xl mt-2sm:mt-0 sm:text-sm">Welcome! <span class="text-primary font-semibold">Nama User</span></p>
+                    <p class="text-xl mt-2sm:mt-0 sm:text-sm">Welcome! <span
+                            class="text-primary font-semibold">{{ auth()->user()->username ?? '' }}</span></p>
                 </div>
 
                 <div class="flex flex-col lg:flex-row justify-between gap-10 mt-3 sm:mt-10">
                     <div class="w-full lg:w-1/5">
                         <h3 class="font-semibold hidden sm:block">Manage My Account</h3>
                         <h3 class="font-semibold sm:hidden block mt-4">My Account</h3>
-                        <ul class="ms-0 sm:ms-7 sm:mt-2 flex gap-3 w-full overflow-scroll scrollbar-hide py-3 sm:p-0 sm:block">
+                        <ul
+                            class="ms-0 sm:ms-7 sm:mt-2 flex gap-3 w-full overflow-scroll scrollbar-hide py-3 sm:p-0 sm:block">
                             <li class="text-slate-600 text-sm my-1">
-                                <a href=""
+                                <a href="{{ route('account.profile') }}" wire:navigate
                                     class="hover:text-primary {{ request()->routeIs('account.profile') ? 'text-primary' : '' }}">
                                     Profile
                                 </a>
@@ -60,8 +62,7 @@
                                         <form class="relative w-full flex justify-center items-center">
                                             <!-- Foto Profil -->
                                             <div class="relative">
-                                                <img id="profilePreview" src="https://via.placeholder.com/150"
-                                                    alt=""
+                                                <img id="profilePreview" src="" alt=""
                                                     class="w-36 h-36 md:w-45 md:h-45 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-slate-600 bg-primary cursor-pointer transition hover:opacity-80" />
                                                 <input id="profileInput" type="file" accept="image/*"
                                                     class="hidden" />
@@ -78,57 +79,42 @@
                                 <form class="w-full lg:w-3/4">
                                     <div class="grid md:grid-cols-2 md:gap-6">
                                         <div class="relative z-0 w-full mb-5 group">
-                                            <input type="text" name="username" id="username"
+                                            <input type="text" id="username" wire:model="username"
                                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
                                                 placeholder=" " required />
                                             <label for="username"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-5 group">
-                                            <input type="text" name="fullname" id="fullname"
-                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
-                                                placeholder=" " required />
-                                            <label for="fullname"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
-                                                Lengkap</label>
-                                        </div>
-                                    </div>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-5 group">
-                                            <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="phone"
-                                                id="phone"
-                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
-                                                placeholder=" " required />
-                                            <label for="phone"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nomor
-                                                Telpon</label>
-                                        </div>
-                                        <div class="relative z-0 w-full mb-5 group">
-                                            <input type="text" name="email" id="email"
+                                            <input type="text" id="email" wire:model="email"
                                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
                                                 placeholder=" " required />
                                             <label for="email"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                                         </div>
                                     </div>
-                                    <div class="relative z-0 w-full mb-5 group">
-                                        <input type="password" name="password" id="password"
-                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
-                                            placeholder=" " required />
-                                        <label for="password"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-                                    </div>
-                                    <div class="relative z-0 w-full mb-5 group">
-                                        <input type="password" name="new_password" id="new_password"
-                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
-                                            placeholder=" " required />
-                                        <label for="new_password"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">New
-                                            password</label>
+                                    <div class="grid md:grid-cols-2 md:gap-6">
+                                        <div class="relative z-0 w-full mb-5 group">
+                                            <input type="text" id="fullname" wire:model="fullname"
+                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                                                placeholder=" " required />
+                                            <label for="fullname"
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
+                                                Lengkap</label>
+                                        </div>
+                                        <div class="relative z-0 w-full mb-5 group">
+                                            <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                                wire:model="phone" id="phone"
+                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                                                placeholder=" " required />
+                                            <label for="phone"
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nomor
+                                                Telpon</label>
+                                        </div>
                                     </div>
 
                                     <div class="relative z-0 w-full mb-5 group">
-                                        <textarea name="address" id="address" rows="3"
+                                        <textarea id="address" rows="3" wire:model="adress"
                                             class="peer block w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary p-2.5 resize-none"
                                             placeholder=" " required></textarea>
                                         <label for="address"
@@ -137,6 +123,21 @@
                                         </label>
                                     </div>
 
+                                    <div class="relative z-0 w-full mb-5 group">
+                                        <input type="password" id="password" wire:model="password"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                                            placeholder=" " required />
+                                        <label for="password"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                                    </div>
+                                    <div class="relative z-0 w-full mb-5 group">
+                                        <input type="password" id="new_password" wire:model="newPassword"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                                            placeholder=" " required />
+                                        <label for="new_password"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">New
+                                            password</label>
+                                    </div>
 
                                     <button type="submit"
                                         class="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>

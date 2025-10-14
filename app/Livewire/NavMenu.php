@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class NavMenu extends Component
 {
@@ -12,6 +13,14 @@ class NavMenu extends Component
     public function resetSearch()
     {
         $this->search = '';
+    }
+
+    // logout
+    public function logout()
+    {
+        Auth::logout();
+        
+        $this->redirectRoute('home', navigate:true);
     }
 
     public function render()

@@ -28,7 +28,7 @@ class Show extends Component
     {
         $this->slug = $slug;
         $this->product = Product::with('category')->where('slug', $slug)->first();
-        $this->images = json_decode($this->product->images, true) ?? null;
+        $this->images = json_decode($this->product->images ?? null, true) ;
 
         $this->thumbnail = !empty($this->product->thumbnail)
             ? asset("storage/" . $this->product->thumbnail)

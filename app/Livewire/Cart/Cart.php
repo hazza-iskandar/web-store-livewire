@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart as CartModel;
 
+#[\Livewire\Attributes\Title('Carts')]
 class Cart extends Component
 {
     public $quantities = [];
@@ -14,8 +15,8 @@ class Cart extends Component
     // set default data increment 
     public function mount()
     {
-        // $cartProducts = CartModel::where('user_id', Auth::user()->id());
-        $cartProducts = CartModel::where('user_id', 1)->get(); // untuk test
+        $cartProducts = CartModel::where('user_id', Auth::user()->id)->get();
+        // $cartProducts = CartModel::where('user_id', 1)->get(); // untuk test
         foreach ($cartProducts as $cart) {
             $this->quantities[$cart->id] = $cart->qty ?? 1;
         }
@@ -57,8 +58,8 @@ class Cart extends Component
 
     public function render()
     {
-        // $productCarts = CartModel::where('user_id', Auth::user()->id());
-        $productCarts = CartModel::with('product')->where('user_id', 1)->get(); // untuk testing aja dulu;
+        $productCarts = CartModel::where('user_id', Auth::user()->id)->get();
+        // $productCarts = CartModel::with('product')->where('user_id', 1)->get(); // untuk testing aja dulu;
 
         // total semua barang
         $this->total_price_all = $productCarts->sum('total_price');
