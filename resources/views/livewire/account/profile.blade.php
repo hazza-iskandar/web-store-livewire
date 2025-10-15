@@ -1,5 +1,5 @@
 <div>
-    <x-notifAlert/>
+    <x-notifAlert />
     <section class="my-4 flex">
         <div class="container">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center">
@@ -36,7 +36,7 @@
                         class="ms-0 sm:ms-7 sm:mt-2 flex gap-3 w-full overflow-scroll scrollbar-hide py-3 sm:p-0 sm:block">
                         <li class="text-slate-600 text-sm my-1">
                             <a href="{{ route('account.profile') }}" wire:navigate
-                                class="hover:text-primary {{ request()->routeIs('account.profile') ? 'text-primary' : '' }}">
+                                class="hover:text-primary {{ request()->routeIs('account.*') ? 'text-primary' : '' }}">
                                 Profile
                             </a>
                         </li>
@@ -55,18 +55,27 @@
                     <div class="lg:shadow-lg rounded-md w-full lg:px-20 sm:py-13">
                         <h1 class="text-xl md:text-2xl text-primary font-semibold mb-3">Edit Profile</h1>
 
-                        <div class="flex flex-col lg:flex-row gap-10">
+                        <form class="flex flex-col lg:flex-row gap-10" wire:submit="saveProfile">
 
                             {{-- left img profile --}}
                             <div class="w-full lg:w-1/4">
-                                <form class="flex flex-col items-center space-y-4">
+                                <div class="flex flex-col items-center space-y-4">
                                     <!-- Foto Profil -->
                                     <div class="relative w-full flex justify-center items-center">
                                         <!-- Foto Profil -->
                                         <div class="relative">
-                                            <img id="profilePreview" src="" alt=""
-                                                class="w-36 h-36 md:w-45 md:h-45 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-slate-600 bg-primary cursor-pointer transition hover:opacity-80" />
-                                            <input id="profileInput" type="file" accept="image/*" class="hidden" />
+                                            @if ($img_profile)
+                                                <img id="profilePreview" src="{{ $img_profile->temporaryUrl() }}"
+                                                    alt=""
+                                                    class="w-36 h-36 md:w-45 md:h-45 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-slate-600 bg-primary cursor-pointer transition hover:opacity-80" />
+                                            @else
+                                                <img id="profilePreview"
+                                                    src="{{ asset('storage/' . ($user->profile->img_profile ?? '')) . '?v=' . now()->timestamp }}"
+                                                    alt=""
+                                                    class="w-36 h-36 md:w-45 md:h-45 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-slate-600 bg-primary cursor-pointer transition hover:opacity-80" />
+                                            @endif
+                                            <input id="profileInput" type="file" accept="image/*" class="hidden"
+                                                wire:model='img_profile' />
 
                                             <!-- Icon Ubah -->
                                             <label for="profileInput"
@@ -75,11 +84,11 @@
                                             </label>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
 
                             {{-- right form profile --}}
-                            <form class="w-full lg:w-3/4" wire:submit="saveProfile">
+                            <div class="w-full lg:w-3/4">
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-5 group">
                                         <input type="text" id="username" wire:model="username"
@@ -106,6 +115,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-5 group">
                                         <input type="text" id="fullname" wire:model="fullname"
@@ -138,7 +148,7 @@
                                 <div class="relative z-0 w-full mb-5 group">
                                     <textarea id="address" rows="3" wire:model="adress" wire:focus='resetField("adress")'
                                         class="peer block w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary p-2.5 resize-none"
-                                        placeholder=" " required></textarea>
+                                        placeholder=" "></textarea>
                                     <label for="address"
                                         class="absolute text-sm text-gray-500 mt-3 duration-300 transform -translate-y-6 scale-75 top-2 origin-[0] peer-placeholder-shown:translate-y-2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-primary">
                                         Alamat
@@ -161,6 +171,7 @@
                                                 class="font-medium">{{ $message }}</p>
                                     @enderror
                                 </div>
+
                                 <div class="relative z-0 w-full mb-5 group">
                                     <input type="password" id="new_password" wire:model="newPassword"
                                         wire:focus='resetField("newPassword")'
@@ -184,11 +195,12 @@
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </button>
-                            </form>
-                        </div>
+                            </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+</div>
+</section>
 </div>

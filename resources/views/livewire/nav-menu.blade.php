@@ -75,8 +75,14 @@
                 @auth
                     {{-- user --}}
                     <div id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
-                        class="aspect-square p-[6px] bg-primary cursor-pointer grid place-items-center rounded-full">
-                        <i class="fa-regular fa-user text-xl text-white"></i>
+                        class="aspect-square w-13 bg-primary cursor-pointer grid place-items-center rounded-full overflow-hidden shadow-md border-3 border-primary">
+                        
+                        @if ($img_profile != null)
+                        <img src="{{ asset('storage/' . $img_profile . '?v=' . now()->timestamp) }}" alt=""
+                                class="w-full h-full object-cover">
+                        @else
+                            <i class="fa-regular fa-user text-xl text-white"></i>
+                        @endif
                     </div>
                     <!-- Dropdown menu User-->
                     <div id="dropdownInformation"

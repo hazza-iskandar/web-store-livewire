@@ -5,10 +5,24 @@ namespace App\Livewire;
 use App\Models\Product;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 class NavMenu extends Component
 {
-    public $search;
+    public $search, $img_profile;
+
+    public function mount()
+    {
+        // akan mengambil data
+        $this->img_profile = Auth::user()->profile->img_profile ?? null;
+    }
+
+    #[On('profile-updated')]
+    public function updateProfileImage($newUrl)
+    {
+        // Ambil path baru dari event yg dikirim dari update profile
+        $this->img_profile = $newUrl; // ubah sementar ketiak navigatter/refresh maka akan ambil dir database
+    }
 
     public function resetSearch()
     {
@@ -19,8 +33,8 @@ class NavMenu extends Component
     public function logout()
     {
         Auth::logout();
-        
-        $this->redirectRoute('home', navigate:true);
+
+        $this->redirectRoute('home', navigate: true);
     }
 
     public function render()
@@ -33,6 +47,7 @@ class NavMenu extends Component
                     });
             })
             ->get();
+
         return view('livewire.nav-menu', compact('products'));
     }
 }

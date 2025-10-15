@@ -15,8 +15,6 @@ Route::middleware('guest')->group(function () {
     });
     
 });
-Route::get('/categories', \App\Livewire\Products\Products::class)->name('categories');
-
 // khusus sudah login
 Route::middleware('auth')->group(function () {
     Route::prefix('account')->name('account.')->group(function () {
@@ -36,3 +34,5 @@ Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', \App\Livewire\Products\Products::class)->name('index');
     Route::get('/show/{slug}', \App\Livewire\Products\Show::class)->middleware('auth')->name('show');
 });
+Route::get('/categories', \App\Livewire\Products\Products::class)->name('categories');
+

@@ -2,15 +2,20 @@
 
 namespace App\Livewire\Account;
 
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Profile as ProfileModel;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Profile as ProfileModel;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 #[\Livewire\Attributes\Layout('components.layouts.app')]
 class Profile extends Component
 {
+    // buat preview img
+    use WithFileUploads;
+
     public
         $username = "",
         $email = "",
@@ -36,9 +41,13 @@ class Profile extends Component
         $this->email = $user->email ?? '';
         $this->fullname = $user->profile->fullname ?? '';
         $this->phone = $user->profile->phone ?? '';
-        $this->img_profile = $user->profile->img_profile ?? '';
         $this->adress = $user->profile->adress ?? '';
     }
+
+    // public function deletTmpPrev()
+    // {
+    //     if(Storage::disk('local'))->exi
+    // }
 
     public function resetField($field)
     {
@@ -109,12 +118,13 @@ class Profile extends Component
     public function saveProfile()
     {
         $userID = Auth::user()->id;
+        $user = User::find($userID);
         $validated = $this->validate(); // otomatis pakai rules() dan messages()
 
         // update user
         if ($this->password) {
-            $user = User::find($userID);
-            if(!Hash::check($this->password,$user->password)){
+
+            if (!Hash::check($this->password, $user->password)) {
                 $this->addError('password', 'password yang anda masukan salah');
                 return;
             }
@@ -125,11 +135,10 @@ class Profile extends Component
                 'password' => $this->newPassword
             ]);
         } else {
-            $user = User::find($userID)
-                ->update([
-                    'username' => $this->username,
-                    'email' => $this->email,
-                ]);
+            $user->update([
+                'username' => $this->username,
+                'email' => $this->email,
+            ]);
         }
 
         // update profile
@@ -142,17 +151,41 @@ class Profile extends Component
                 'fullname' => $this->fullname,
                 'phone' => $this->phone,
                 'adress' => $this->adress,
-                'img_profile ?? null' => $this->img_profile ?? null,
             ]
         );
 
+        // jika ada img yg di upload
+        if ($this->img_profile) {
+            // dd($this->img_profile != );
+            if (!empty($this->user->profile->img_profile)) {
+                if ($this->img_profile != $this->user->profile->img_profile) {
+                    // hapus file gambar lama
+                    if (Storage::disk('public')->exists($this->user->profile->img_profile)) {
+                        // maka delete
+                        Storage::disk('public')->delete($this->user->profile->img_profile);
+                    }
+                }
+            }
+            $path = $this->img_profile->store('profiles', 'public'); //kirim ke Storage
+            $user->profile->update([
+                'img_profile' => $path
+            ]);
+            $this->reset('img_profile');
+            $this->user->profile->refresh();
+        }
+
+
         if ($user && $profile) {
+            // untuk update img profile
+            $this->dispatch('profile-updated', $path); //akan dikirim dan diterima oleh navmenu
+
             $this->dispatch('notify', status: 'success', message: 'Update profile berhasil');
             $this->reset('password', 'newPassword');
         } else {
             $this->dispatch('notify', status: 'failed', message: 'Gagal update profile berhasil');
         }
     }
+
     public function render()
     {
         return view('livewire.account.profile');
