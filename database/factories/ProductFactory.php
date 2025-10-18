@@ -23,6 +23,8 @@ class ProductFactory extends Factory
             'slug' => fake('id_ID')->unique()->word(),
             'price' => fake('id_ID')->numberBetween(1000, 100000),
             'stock' => rand(20, 100),
+            'status' => fake()->randomElement(['publish', 'draft']),
+            'total_sold' => rand(10, 50),
             'desc' => implode(', ', fake('id_ID')->sentences(8))
         ];
     }

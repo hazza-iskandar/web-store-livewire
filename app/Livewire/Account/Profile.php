@@ -44,11 +44,6 @@ class Profile extends Component
         $this->adress = $user->profile->adress ?? '';
     }
 
-    // public function deletTmpPrev()
-    // {
-    //     if(Storage::disk('local'))->exi
-    // }
-
     public function resetField($field)
     {
         $this->resetErrorBag($field);
@@ -188,6 +183,7 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.account.profile');
+        return view('livewire.account.profile')
+            ->title('Profile: ' . Auth::user()->username);
     }
 }

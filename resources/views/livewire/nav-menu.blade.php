@@ -76,9 +76,9 @@
                     {{-- user --}}
                     <div id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
                         class="aspect-square w-13 bg-primary cursor-pointer grid place-items-center rounded-full overflow-hidden shadow-md border-3 border-primary">
-                        
+
                         @if ($img_profile != null)
-                        <img src="{{ asset('storage/' . $img_profile . '?v=' . now()->timestamp) }}" alt=""
+                            <img src="{{ asset('storage/' . $img_profile . '?v=' . now()->timestamp) }}" alt=""
                                 class="w-full h-full object-cover">
                         @else
                             <i class="fa-regular fa-user text-xl text-white"></i>
@@ -92,19 +92,21 @@
                             <div class="font-medium truncate">{{ auth()->user()->email ?? '' }}</div>
                         </div>
                         <ul class="py-2 text-sm text-gray-100" aria-labelledby="dropdownInformationButton">
-                            <li>
-                                <a href="{{ route('dashboard.index') }}"
-                                    class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800"
-                                    wire:navigate>Dashboard</a>
-                            </li>
+                            @if (auth()->user()->is_admin == true)
+                                <li>
+                                    <a href="{{ route('dashboard.index') }}"
+                                        class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800"
+                                        wire:navigate>Dashboard</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ route('account.profile') }}"
                                     class="block px-4 py-2 hover:bg-gray-100 hover:text-slate-800" wire:navigate>Account</a>
                             </li>
                         </ul>
                         <div class="py-2">
-                            <button wire:click="logout"
-                                class="w-full text-start px-4 py-2 text-sm text-gray-100 hover:bg-gray-100 hover:text-slate-800">Log
+                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                                class="w-full text-start px-4 py-2 text-sm text-gray-100 hover:bg-gray-100 hover:text-slate-800 cursor-pointer">Log
                                 Out</button>
                         </div>
                     </div>
@@ -123,4 +125,23 @@
         </div>
     </nav>
 
+    {{-- modal --}}
+    <x-modal id="popup-modal">
+        <button type="button"
+            class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+            data-modal-hide="popup-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <span class="sr-only">Close modal</span>
+        </button>
+        <div class="p-4 md:p-5 text-center">
+            <i class="fa-solid fa-triangle-exclamation text-slate-400 opacity-500 text-4xl md:text-5xl mb-3"></i>
+            <h3 class="mb-5 text-lg font-normal text-gray-500 ">Yakin ingin logout?</h3>
+            <button data-modal-hide="popup-modal" type="button" wire:click="logout"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                Logout
+            </button>
+            <button data-modal-hide="popup-modal" type="button"
+                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Batal</button>
+        </div>
+    </x-modal>
 </div>

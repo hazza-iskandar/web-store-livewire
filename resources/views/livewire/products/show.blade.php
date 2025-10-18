@@ -69,17 +69,24 @@
                         </div>
                         @if (!$product->stock == 0 || !empty($product->stock))
                             <div class="mt-5 flex gap-3">
-                                <a href="" type="button"
-                                    class="text-white inline-block mt-3 w-full bg-primary hover:bg-slate-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2">Beli</a>
-                                <button type="button" wire:click="addToCart('{{ $product->id }}')"
-                                    class="text-white inline-block mt-3 bg-green-600 w-full hover:bg-green-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2 cursor-pointer">Keranjang</a>
+                                <button wire:click='checkOut({{ $product->id }})' wire:loading.attr='disabled'
+                                    class="text-white inline-block mt-3 w-full bg-primary hover:bg-slate-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2">
+                                    <span>Beli</span>
+
+                                    <div role="status" wire:loading >
+                                        <i class="fa-solid fa-spinner text-gray-200 animate-spin"></i>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                                <button type="button" wire:click="addToCart({{ $product->id }})"
+                                    class="text-white inline-block mt-3 bg-green-600 w-full hover:bg-green-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2 cursor-pointer">Keranjang</button>
                             </div>
                         @endif
                     </div>
                 </div>
             </div>
 
-            <div class="heading-title mt-15" >
+            <div class="heading-title mt-15">
                 <h3 class="">Related Products</h3>
                 <div class="flex justify-between items-center">
                     <p class="text-heading font-bold mt-3 text-2xl">Produk Terkait</p>
@@ -101,7 +108,7 @@
                     <div class="swiper-wrapper">
                         @foreach ($products as $product)
                             <div class="swiper-slide">
-                               <x-productCard :product="$product"/>
+                                <x-productCard :product="$product" />
                             </div>
                         @endforeach
                     </div>
@@ -109,5 +116,5 @@
             </div>
         </div>
     </section>
-    
+
 </div>

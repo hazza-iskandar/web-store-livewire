@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Cart;
 
+use Carbon\Carbon;
+use App\Models\Product;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Cart as CartModel;
+use App\Models\Order as OrderModel;
+use Illuminate\Support\Facades\Auth;
 
 #[\Livewire\Attributes\Title('Carts')]
 class Cart extends Component
@@ -12,6 +15,11 @@ class Cart extends Component
     public $quantities = [];
     public $total_price_all;
 
+    public $selectAll = false;
+    public $selectedId = [];
+
+    public $productCarts;
+    public $order;
     // set default data increment 
     public function mount()
     {
@@ -56,14 +64,59 @@ class Cart extends Component
         $this->dispatch('notify', status: 'success', message: 'product keranjang berhasil dihapus');
     }
 
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            // ambil id dari cart, bukan product
+            $this->selectedId = $this->productCarts->pluck('id')->toArray();
+        } else {
+            $this->selectedId = [];
+        }
+    }
+
+    public function updatedSelectedId()
+    {
+        // jika semua id terpilih, selectAll = true
+        $this->selectAll = count($this->selectedId) === $this->productCarts->count();
+    }
+
+    public function checkOut($productIds)
+    {
+        $carts = CartModel::whereIn('id', $productIds)->get();
+        $codeOrderGroup = makeGroupOrderCode();
+
+        $result = [];
+        foreach ($carts as $cart) {
+            $order = OrderModel::create([
+                'user_id' => Auth::user()->id,
+                'product_id' => $cart->product->id,
+                'cart_id' => $cart->id,
+                'qty' => $cart->qty, // untuk sementar 1 
+                'price' => $cart->product->price,
+                'status' => 'pending',
+                'total_price' => $cart->total_price,
+                'order_code' => makeOrderCode(),
+                'order_code_group' => $codeOrderGroup,
+                'date' => Carbon::today()->toDateString()
+            ]);
+            $result[] = $order;
+        }
+        return $this->redirectRoute('order', ['codeOrder' => $result[0]->order_code_group], navigate: true);
+    }
+
     public function render()
     {
         $productCarts = CartModel::where('user_id', Auth::user()->id)->get();
-        // $productCarts = CartModel::with('product')->where('user_id', 1)->get(); // untuk testing aja dulu;
 
         // total semua barang
-        $this->total_price_all = $productCarts->sum('total_price');
+        // Kalau tidak ada yang dipilih → total 0
+        // Ambil hanya cart yang terpilih
+        $this->total_price_all = $productCarts
+            ->whereIn('id', $this->selectedId)
+            ->sum('total_price');
 
-        return view('livewire.cart.cart', compact('productCarts'));
+
+        $this->productCarts = $productCarts;
+        return view('livewire.cart.cart');
     }
 }

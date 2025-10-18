@@ -18,16 +18,15 @@ class CartService
             ];
         }
 
+        // ini harus di handle dulu ketika belu login
         if(!Auth::check()){
             return [
                 'status' => 'eror 401' //belum login Unauthorized
             ];
         }
 
-        // ini harus di handle dulu ketika belu login
         $cart = Cart::create([
             'user_id' => Auth::user()->id,
-            // 'user_id' => '1', // untuk testting,
             'product_id' => $produk_id,
             'qty' => '1', // quantity default nya 1 
             'price' => $product->price,

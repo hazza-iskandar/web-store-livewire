@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->integer('price');
             $table->integer('stock')->nullable()->default(0);
+            $table->enum('status', ['draft', 'publish'])->deffault('draft');
             $table->text('desc');
             $table->string('thumbnail')->nullable();
             $table->json('images')->nullable();
+            $table->integer('total_sold')->nullable();
             $table->timestamps();
         });
     }

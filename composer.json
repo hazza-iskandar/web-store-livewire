@@ -32,7 +32,8 @@
         },
         "files": [
             "app/Helpers/FormatRupiah.php",
-            "app/Helpers/ThumbnailiCondition.php"
+            "app/Helpers/ThumbnailiCondition.php",
+            "app/Helpers/OrderCode.php"
         ]
     },
     "autoload-dev": {

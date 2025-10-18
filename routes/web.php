@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
     // cart
     Route::get('/cart', \App\Livewire\Cart\Cart::class)->name('cart');
+    Route::get('/order/{codeOrder}', \App\Livewire\Order\Order::class)->name('order');
 });
 
 // route product

@@ -7,7 +7,6 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Services\CartService;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
 #[\Livewire\Attributes\Title('Products')]
@@ -66,6 +65,7 @@ class Products extends Component
                     $q->where('slug', $this->categorySelected);
                 });
             })
+            ->where('status', 'publish')
             ->paginate(8);
 
         $categories = Category::get();
