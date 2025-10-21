@@ -97,3 +97,7 @@ input[type="number"] {
     -ms-overflow-style: none; /* untuk IE dan Edge lama */
     scrollbar-width: none; /* untuk Firefox */
 }
+
+[x-cloak] {
+  display: none !important;
+}

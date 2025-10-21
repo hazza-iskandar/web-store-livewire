@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', \App\Livewire\Dashboard\Dashboard::class)->name('index');
+        Route::get('/products', \App\Livewire\Dashboard\Products\Index::class)->name('products.index');
     });
 
     // cart

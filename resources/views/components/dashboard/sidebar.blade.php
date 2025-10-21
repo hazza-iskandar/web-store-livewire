@@ -3,10 +3,12 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
         <ul class="space-y-2 font-medium">
-            <li><a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <li><a href="{{ route('dashboard.index') }}" wire:navigate
+                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <i class="fas fa-columns"></i>
                     <span class="ms-3">Dashboard</span></a></li>
-            <li><a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <li><a href="{{ route('dashboard.products.index') }}" wire:navigate
+                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="ms-3">Products</span></a></li>
             <li><a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">

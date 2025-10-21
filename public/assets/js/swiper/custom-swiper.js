@@ -122,9 +122,8 @@ var swiper = new Swiper(".showProduct", {
     spaceBetween: 30,
     centeredSlides: true,
     loop: true,
-    touchStartPreventDefault: false, // untukk livewire
     autoplay: {
-        delay: 5000,
+        delay: 2000,
         disableOnInteraction: false,
     },
     pagination: {

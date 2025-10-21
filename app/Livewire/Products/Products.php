@@ -22,6 +22,7 @@ class Products extends Component
     public function mount()
     {
         $this->categorySelected = request('category');
+
     }
     // untuk jalankan service nya
     protected $cartService;
@@ -44,9 +45,9 @@ class Products extends Component
         $this->dispatch('notify', status: $result['status'] ? 'success' : 'failed',  message: $result['message']);
     }
 
-    public function searcCategory($slug)
+    public function searcCategory($title)
     {
-        $this->categorySelected = $slug;
+        $this->categorySelected = $title;
     }
 
     public function resetCategory()
@@ -62,13 +63,14 @@ class Products extends Component
             })
             ->when(isset($this->categorySelected), function ($product) { // ketika ada isset kategory maka cari data dari relasi category
                 $product->whereHas('category', function ($q) {
-                    $q->where('slug', $this->categorySelected);
+                    $q->where('title', $this->categorySelected);
                 });
             })
             ->where('status', 'publish')
+            ->latest()
             ->paginate(8);
 
-        $categories = Category::get();
+        $categories = Category::all();
 
 
         return view('livewire.products.products', compact('products', 'categories'));

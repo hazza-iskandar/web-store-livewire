@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
         Category::factory(3)->create();
-        Product::factory(10)->create();
+        Product::factory(100)->create();
         Banner::factory(8)->create();
     }
 }

@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+<nav class="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
@@ -13,7 +13,7 @@
                         </path>
                     </svg>
                 </button>
-                <a href="#" class="flex ms-2 md:me-24">
+                <a href="{{ route('home') }}" class="flex ms-2 md:me-24">
                     <img src="{{ asset('assets/images/myLogo.png') }}" class="asepect-ration w-12 me-3" alt="Logo" />
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">{{ config('app.name' )}}</span>
                 </a>

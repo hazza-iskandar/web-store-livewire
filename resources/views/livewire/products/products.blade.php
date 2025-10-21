@@ -48,7 +48,7 @@
                                     </li>
                                     @foreach ($categories as $category)
                                         <li>
-                                            <button type="button" wire:click="searcCategory('{{ $category->slug }}')"
+                                            <button type="button" wire:click="searcCategory('{{ $category->title }}')"
                                                 class="inline-flex w-full px-4 py-2 hover:bg-gray-100">{{ $category->title }}</button>
                                         </li>
                                     @endforeach

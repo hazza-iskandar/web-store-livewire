@@ -5,14 +5,14 @@
             <div class="swiper-wrapper">
                 @foreach ($sliders as $slider)
                     <div class="swiper-slide relative">
-                        <img src="{{ thumbnailCond($slider->img_banner) }}" alt="" loading="lazy">
+                        <img src="{{ thumbnailCond($slider->img_banner ?? '') }}" alt="" loading="lazy">
                         <div class="absolute inset-0 bg-[#00000048] px-6 md:px-10 flex flex-col justify-end pb-10">
 
                             <div class="w-80 md:w-200 text-start line-clamp-3 mb-20 lg:mb-30">
                                 <p class="font-bold text-sm md:text-lg text-primary">{{ $slider->category->title }}</p>
                                 <h3 class="font-bold text-2xl lg:text-4xl text-slate-200">{{ $slider->title }}</h3>
                             </div>
-                            <a href="{{ route('products.show', $slider->product->slug) }}" wire:navigate
+                            <a href="{{ route('products.show', $slider->product->slug ) }}" wire:navigate
                                 class="text-white text-center w-40 bg-primary transition-all hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Lihat
                                 Produk <i class="fa-solid fa-bag-shopping"></i></a>
 
@@ -78,7 +78,7 @@
                 <div class="swiper-wrapper">
                     @foreach ($categories as $category)
                         <div class="swiper-slide ">
-                            <a href="{{ route('products.index', ['category' => $category->slug]) }}" wire:navigate
+                            <a href="{{ route('products.index', ['category' => $category->title]) }}" wire:navigate
                                 class="inline-block w-full text-center border-2 border-slate-400 rounded-sm p-2 hover:border-primary hover:bg-primary hover:text-white transition-all">
                                 <p>{{ $category->title }}</p>
                             </a>
@@ -101,15 +101,15 @@
 
             <div class="p-5 w-full md:w-3/5 h-full mt-13 md:mt-50">
                 <div class="w-4/5 line-clamp-3">
-                    <h3 class="text-2xl md:text-4xl truncate text-white font-heading font-bold">{{ $hightlight->title }}
+                    <h3 class="text-2xl md:text-4xl truncate text-white font-heading font-bold">{{ $hightlight->title ?? '' }}
                     </h3>
-                    <p class="text-white mt-2 text-[13px] md:text-[15px] text-ellipsis">{{ $hightlight->desc }}</p>
+                    <p class="text-white mt-2 text-[13px] md:text-[15px] text-ellipsis">{{ $hightlight->desc ?? '' }}</p>
                 </div>
                 <div class="flex gap-2 mt-10">
-                    <a href="{{ route('products.show', $hightlight->product->slug) }}" wire:navigate
+                    <a href="{{ route('products.show', $hightlight->product->slug ?? '#') }}" wire:navigate
                         class="inline-block text-center text-sm md:text-[16px] bg-myGreen hover:bg-[#087735] focus:ring-4 focus:ring-myGreen rounded-sm text- font-semibold px-5 py-2.5 focus:outline-none">Lihat
                         Detail</a>
-                    <button wire:click="addToCart('{{ $hightlight->product->id }}')"
+                    <button wire:click="addToCart('{{ $hightlight->product->id ?? '' }}')"
                         class="text-white inline-block text-center text-sm md:text-[16px] bg-slate-600 hover:bg-[#a22626] focus:ring-4 focus:ring-slate-600 rounded-sm text- font-semibold px-5 py-2.5 focus:outline-none">Tambah
                         <i class="fa-solid fa-cart-plus"></i></button>
                 </div>
@@ -117,7 +117,7 @@
 
             {{-- product --}}
             <div class="w-full md:w-2/5 h-full">
-                <img src="{{ thumbnailCond($hightlight->img_banner) }}" alt="" loading="lazy"
+                <img src="{{ thumbnailCond($hightlight->img_banner ?? '')  }}" alt="" loading="lazy"
                     class="w-full h-80 md:h-full object-cover">
             </div>
         </div>

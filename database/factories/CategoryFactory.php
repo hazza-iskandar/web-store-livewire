@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'title' => fake('id_ID')->word(),
-            'slug' => fake('id_ID')->unique()->word()
+            'desc' => implode(', ', fake('id_ID')->sentences(8))
         ];
     }
 }

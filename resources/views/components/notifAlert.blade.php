@@ -3,6 +3,7 @@
 
 <div x-data="{ show: false, message: '', status: '' }"
     x-show="show"
+    x-cloak
     x-on:notify.window="
         show=true;
         status = $event.detail.status; {{-- ambil dari dispatch data yg dikirim --}}

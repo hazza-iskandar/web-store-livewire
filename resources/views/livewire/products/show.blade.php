@@ -37,18 +37,20 @@
                     <div class="w-full sm:w-1/2 mb-5">
                         <div class="swiper showProduct" wire:ignore>
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                @if (!empty($images))
                                     {{-- perbiaki ini ketika ada image --}}
-                                    @if (!empty($images))
-                                        @foreach ($images as $image)
-                                            <img src="{{ $image }}" class="h-100 rounded-md shadow-md"
-                                                alt="" loading="lazy">
-                                        @endforeach
-                                    @else
+                                    @foreach (array_filter($images) as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{ asset('storage/' . $image) }}"
+                                                class="h-100 rounded-md shadow-md" alt="" loading="lazy">
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="swiper-slide">
                                         <img src="{{ $thumbnail }}" class="h-100 rounded-md shadow-md" alt=""
                                             loading="lazy">
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -73,7 +75,7 @@
                                     class="text-white inline-block mt-3 w-full bg-primary hover:bg-slate-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2">
                                     <span>Beli</span>
 
-                                    <div role="status" wire:loading >
+                                    <div role="status" wire:loading>
                                         <i class="fa-solid fa-spinner text-gray-200 animate-spin"></i>
                                         <span class="sr-only">Loading...</span>
                                     </div>

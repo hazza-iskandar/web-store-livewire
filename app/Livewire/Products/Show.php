@@ -33,6 +33,9 @@ class Show extends Component
         $this->slug = $slug;
         $this->product = Product::with('category')->where('slug', $slug)->first();
         $this->images = json_decode($this->product->images ?? null, true);
+        if (empty($this->images)) {
+            $this->images = null;
+        }
 
         $this->thumbnail = !empty($this->product->thumbnail)
             ? asset("storage/" . $this->product->thumbnail)
@@ -42,20 +45,20 @@ class Show extends Component
     // check out
     public function checkOut($productId)
     {
-         $product = Product::find($productId);
+        $product = Product::find($productId);
 
-         $order = Order::create([
+        $order = Order::create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
             'qty' => 1, // untuk sementar 1 
             'price' => $product->price,
             'status' => 'pending',
             'total_price' => $product->price,
-            'order_code'=> makeOrderCode(),
+            'order_code' => makeOrderCode(),
             'date' => Carbon::today()->toDateString()
-         ]);
+        ]);
 
-         return $this->redirectRoute('order', ['codeOrder' => $order->order_code], navigate:true);
+        return $this->redirectRoute('order', ['codeOrder' => $order->order_code], navigate: true);
     }
 
     public function render()

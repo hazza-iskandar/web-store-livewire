@@ -38,12 +38,15 @@ class Home extends Component
         $newProducts = Product::with('category:id,title')
             ->whereBetween('created_at', [today(), $nextDays])
             ->where('status', 'publish')
+            ->limit(10)
+            ->latest()
             ->get();
         $categories = Category::all();
 
         $allProduct1 = Product::with('category:id,title')
             ->limit(5)
             ->where('status', 'publish')
+            ->latest()
             ->get();
         $allProduct2 = Product::with('category:id,title')
             ->skip(5)
@@ -54,6 +57,7 @@ class Home extends Component
         $sliders = Banner::with('product', 'category:id,title')
             ->where('type', 'slider')
             ->get();
+
         $hightlight = Banner::with('product', 'category:id,title')
             ->where('type', 'highlight')
             ->first();
