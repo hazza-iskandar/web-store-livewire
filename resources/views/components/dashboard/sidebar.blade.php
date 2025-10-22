@@ -11,7 +11,7 @@
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="ms-3">Products</span></a></li>
-            <li><a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <li><a href="{{ route('dashboard.categories.index') }}" wire:navigate class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <i class="fa-solid fa-icons"></i>
                     <span class="ms-3">Categories</span></a></li>
         </ul>

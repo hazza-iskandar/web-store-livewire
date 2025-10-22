@@ -102,7 +102,7 @@
                                 <div>
                                     <label class="block text-start mb-2 text-sm font-medium text-gray-700">Slug</label>
                                     <input type="text" wire:model="slug" readonly
-                                        class="border border-gray-300 bg-gray-200 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                        class="border border-gray-300 bg-gray-160 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                                         placeholder="slug-produk">
                                     @error('slug')
                                         <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
@@ -191,6 +191,12 @@
                                         @error('thumbnail')
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
+                                        @if ($thumbnail)
+                                            <div class="w-16 h-16 rounded-md my-5">
+                                                <img src="{{ $thumbnail->temporaryUrl() }}" alt=""
+                                                    loading="lazy" class="w-full h-full object-cover">
+                                            </div>
+                                        @endif
                                     </div>
 
 
@@ -211,6 +217,16 @@
                                         @error('images')
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
+                                        @if ($images)
+                                            <div class="flex gap-2 flex-wrap my-5">
+                                                @foreach ($images as $image)
+                                                    <div class="w-16 h-16 rounded-md">
+                                                        <img src="{{ $image->temporaryUrl() }}" alt=""
+                                                            loading="lazy" class="w-full h-full object-cover">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -221,9 +237,13 @@
                                     class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition">
                                     Batal
                                 </button>
-                                <button type="submit"
+                                <button type="submit" wire:loading.attr='false' wire:loading.class="bg-[#980e0e]"
                                     class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition">
                                     <i class="fa-solid fa-square-plus me-1"></i> Tambah
+                                    <div role="status" wire:loading wire:target="storeProduct">
+                                        <i class="fa-solid fa-spinner text-gray-200 animate-spin"></i>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
                                 </button>
                             </div>
                         </form>
@@ -315,7 +335,7 @@
                                             <label
                                                 class="block text-start mb-2 text-sm font-medium text-gray-700">Slug</label>
                                             <input type="text" wire:model="slug" readonly
-                                                class="border border-gray-300 bg-gray-200 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                class="border border-gray-300 bg-gray-160 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                                                 placeholder="slug-produk">
                                             @error('slug')
                                                 <p class="text-xs text-red-600 mt-1">{{ $message }}</p>

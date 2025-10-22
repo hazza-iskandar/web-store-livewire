@@ -40,7 +40,7 @@ class Index extends Component
 
     // ambil data untuk uupdate
     // menangkap data yg diirim dari komponent aksi
-    protected $listeners = ['deleteItem' => 'delete', 'updateItem' => 'update'];
+    protected $listeners = ['deleteItem' => 'delete', 'updateItem' => 'edit'];
     public function delete($id)
     {
         $product = Product::find($id);
@@ -71,7 +71,7 @@ class Index extends Component
     }
 
     // update data berdasarkan id
-    public function update($id)
+    public function edit($id)
     {
         $product = Product::find($id);
         if (!$product) {
@@ -358,7 +358,7 @@ class Index extends Component
             ->latest()
             ->paginate(10);
 
-        $categories = Category::all();
+        $categories = Category::latest()->get();
 
         $this->productsSelect = Product::where('status', 'publish')->get();
         return view('livewire.dashboard.products.index', compact('products', 'categories'));
