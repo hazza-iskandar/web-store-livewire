@@ -23,7 +23,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', \App\Livewire\Dashboard\Dashboard::class)->name('index');
-        Route::get('/products', \App\Livewire\Dashboard\Products\Index::class)->name('products.index');
+        Route::prefix('products')->name('products.')->group(function(){
+            Route::get('/', \App\Livewire\Dashboard\Products\Index::class)->name('index');
+            Route::get('/draft', \App\Livewire\Dashboard\Products\Draft::class)->name('draft');
+        });
         Route::get('/categories', \App\Livewire\Dashboard\Categories\Index::class)->name('categories.index');
     });
 

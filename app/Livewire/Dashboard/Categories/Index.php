@@ -2,13 +2,17 @@
 
 namespace App\Livewire\Dashboard\Categories;
 
-use App\Models\Category;
 use Livewire\Component;
+use App\Models\Category;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 #[\Livewire\Attributes\Layout('components.layouts.dashboard')]
 #[\Livewire\Attributes\Title('Dashboard Categories')]
 class Index extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+    
     public $search = '',
         $selectBtnCond = false,
         $selectAll = false,
@@ -138,11 +142,11 @@ class Index extends Component
 
     public function render()
     {
-        $categories = Category::when($this->search, function($category){
-            $category->whereAny(['title'] , 'like', "%{$this->search}%");
+        $categories = Category::when($this->search, function ($category) {
+            $category->whereAny(['title'], 'like', "%{$this->search}%");
         })
-        ->latest()
-        ->paginate(10);
+            ->latest()
+            ->paginate(10);
         return view('livewire.dashboard.categories.index', compact('categories'));
     }
 }

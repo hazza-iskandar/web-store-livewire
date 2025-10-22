@@ -3,17 +3,15 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
         <ul class="space-y-2 font-medium">
-            <li><a href="{{ route('dashboard.index') }}" wire:navigate
-                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <i class="fas fa-columns"></i>
-                    <span class="ms-3">Dashboard</span></a></li>
-            <li><a href="{{ route('dashboard.products.index') }}" wire:navigate
-                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span class="ms-3">Products</span></a></li>
-            <li><a href="{{ route('dashboard.categories.index') }}" wire:navigate class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <i class="fa-solid fa-icons"></i>
-                    <span class="ms-3">Categories</span></a></li>
+            <x-dashboard.sideList :active="request()->routeIs('dashboard.index')" title="Dashboard" icon="fas fa-columns" :href="route('dashboard.index')" />
+            <x-dashboard.sideList :active="request()->routeIs('dashboard.categories.*')" title="Categories" icon="fa-solid fa-boxes-stacked" :href="route('dashboard.categories.index')" />
+
+            <div class="my-4 mt-5 border-t-2 border-slate-300 py-2 pb-3">
+                <p class="uppercase text-slate-400 text-heading text-sm">products</p>
+                <x-dashboard.sideList :active="request()->routeIs('dashboard.products.index')" title="Products" icon="fa-solid fa-box-open" :href="route('dashboard.products.index')" />
+                <x-dashboard.sideList :active="request()->routeIs('dashboard.products.draft')" title="Products Draft" icon="fa-brands fa-dropbox" :href="route('dashboard.products.draft')" />
+            </div>
+
         </ul>
     </div>
 </aside>
