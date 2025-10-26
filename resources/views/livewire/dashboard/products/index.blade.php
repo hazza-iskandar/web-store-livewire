@@ -193,17 +193,10 @@
                                         @enderror
 
                                         @if ($thumbnail)
-                                            @if (!is_string($thumbnail))
-                                                <div class="w-16 h-16 rounded-md my-5">
-                                                    <img src="{{ $thumbnail->temporaryUrl() }}" alt=""
-                                                        loading="lazy" class="w-full h-full object-cover">
-                                                </div>
-                                            @else
-                                                <div class="w-16 h-16 rounded-md my-5">
-                                                    <img src="{{ asset('storage/' . $thumbnail) }}" alt=""
-                                                        loading="lazy" class="w-full h-full object-cover">
-                                                </div>
-                                            @endif
+                                            <div class="w-16 h-16 rounded-md my-5">
+                                                <img src="{{ $thumbnail->temporaryUrl() }}" alt=""
+                                                    loading="lazy" class="w-full h-full object-cover">
+                                            </div>
                                         @endif
                                     </div>
 
@@ -226,26 +219,14 @@
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
                                         @if ($images)
-                                            @if (!is_array($images))
-                                                <div class="flex gap-2 flex-wrap my-5">
-                                                    @foreach ($images as $image)
-                                                        <div class="w-16 h-16 rounded-md">
-                                                            <img src="{{ $image->temporaryUrl() }}" alt=""
-                                                                loading="lazy" class="w-full h-full object-cover">
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            @else
-                                                <div class="flex gap-2 flex-wrap my-5">
-                                                    @foreach ($images as $image)
-                                                        <div class="w-16 h-16 rounded-md">
-                                                            <img src="{{ asset('storage/' . $image) }}"
-                                                                alt="" loading="lazy"
-                                                                class="w-full h-full object-cover">
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            @endif
+                                            <div class="flex gap-2 flex-wrap my-5">
+                                                @foreach ($images as $image)
+                                                    <div class="w-16 h-16 rounded-md">
+                                                        <img src="{{ $image->temporaryUrl() }}" alt=""
+                                                            loading="lazy" class="w-full h-full object-cover">
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -449,6 +430,22 @@
                                                 @error('thumbnail')
                                                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                                 @enderror
+
+                                                @if ($thumbnail)
+                                                    @if (!is_string($thumbnail))
+                                                        <div class="w-16 h-16 rounded-md my-5">
+                                                            <img src="{{ $thumbnail->temporaryUrl() }}"
+                                                                alt="" loading="lazy"
+                                                                class="w-full h-full object-cover">
+                                                        </div>
+                                                    @else
+                                                        <div class="w-16 h-16 rounded-md my-5">
+                                                            <img src="{{ asset('storage/' . $thumbnail) }}"
+                                                                alt="" loading="lazy"
+                                                                class="w-full h-full object-cover">
+                                                        </div>
+                                                    @endif
+                                                @endif
                                             </div>
 
 
@@ -471,6 +468,29 @@
                                                 @error('images')
                                                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                                 @enderror
+                                                @if ($images)
+                                                    @if (!is_array($images))
+                                                        <div class="flex gap-2 flex-wrap my-5">
+                                                            @foreach ($images as $image)
+                                                                <div class="w-16 h-16 rounded-md">
+                                                                    <img src="{{ $image->temporaryUrl() }}"
+                                                                        alt="" loading="lazy"
+                                                                        class="w-full h-full object-cover">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <div class="flex gap-2 flex-wrap my-5">
+                                                            @foreach ($images as $image)
+                                                                <div class="w-16 h-16 rounded-md">
+                                                                    <img src="{{ asset('storage/' . $image) }}"
+                                                                        alt="" loading="lazy"
+                                                                        class="w-full h-full object-cover">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

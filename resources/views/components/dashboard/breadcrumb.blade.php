@@ -1,6 +1,7 @@
 @props([
     'title' => '',
     'items' => [],
+    'account' => false
 ])
 
 <div class="mb-6">
@@ -9,9 +10,9 @@
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             <!-- Home -->
             <li class="inline-flex items-center">
-                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
+                <a href="{{ !$account ? route('dashboard.index') : route('account.profile') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
                     <i class="fas fa-home w-3 h-3 me-2.5"></i>
-                    Dashboard
+                    {{ !$account ? 'Dashboard' : 'Account'}}
                 </a>
             </li>
 

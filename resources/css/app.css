@@ -48,6 +48,9 @@
     .active {
         @apply font-heading relative md:after:absolute md:after:h-[3px] md:after:block md:after:bg-black md:after:mt-2 md:after:w-full md:after:transition-all md:after:duration-500 block py-2 px-3 text-gray-900 rounded-sm bg-gray-200 md:bg-transparent hover:bg-gray-200 md:hover:bg-transparent md:border-0 md:p-0 my-1;
     }
+    .status-active{
+        @apply bg-primary text-white rounded-lg;
+    }
     .nav-link {
         @apply font-heading block py-2 px-3 relative md:after:absolute md:after:h-[3px] md:after:block md:after:mt-2 md:after:bg-black md:after:w-0 hover:md:after:w-full md:after:transition-all md:after:duration-500 text-gray-900 rounded-sm hover:bg-gray-200 md:hover:bg-transparent md:border-0 md:p-0 my-1;
     }

@@ -55,7 +55,7 @@ class Profile extends Component
         $rules = [
             'username'    => 'required|string|min:3|max:100',
             'fullname'    => 'required|string|min:3|max:150',
-            'phone'       => 'required|string|min:10|max:15|regex:/^08[0-9]{8,11}$/',
+            'phone'       => 'required|string|min:10|max:15',
             'img_profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // optional upload
             'adress'      => 'nullable|string|max:255',
         ];
@@ -172,7 +172,9 @@ class Profile extends Component
 
         if ($user && $profile) {
             // untuk update img profile
-            $this->dispatch('profile-updated', $path); //akan dikirim dan diterima oleh navmenu
+            if(isset($path)){
+                $this->dispatch('profile-updated', $path); //akan dikirim dan diterima oleh navmenu
+            }
 
             $this->dispatch('notify', status: 'success', message: 'Update profile berhasil');
             $this->reset('password', 'newPassword');

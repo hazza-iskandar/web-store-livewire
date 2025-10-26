@@ -3,26 +3,7 @@
     <section class="my-4 flex">
         <div class="container">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center">
-                <div class="mt-3 mb-5">
-                    <nav class="flex mt-2" aria-label="Breadcrumb">
-                        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                            <li class="inline-flex items-center">
-                                <a href="{{ route('home') }}" wire:navigate
-                                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary"
-                                    wire:navigate>
-                                    <i class="fa-solid fa-house me-2"></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li aria-current="page">
-                                <div class="flex items-center">
-                                    <i class="fa-solid fa-chevron-right text-sm text-gray-400"></i>
-                                    <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Account</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                <x-dashboard.breadcrumb :account="true" :items="[['name' => 'profile']]" />
 
                 <p class="text-xl mt-2sm:mt-0 sm:text-sm">Welcome! <span
                         class="text-primary font-semibold">{{ auth()->user()->username ?? '' }}</span></p>
@@ -34,20 +15,12 @@
                     <h3 class="font-semibold sm:hidden block mt-4">My Account</h3>
                     <ul
                         class="ms-0 sm:ms-7 sm:mt-2 flex gap-3 w-full overflow-scroll scrollbar-hide py-3 sm:p-0 sm:block">
-                        <li class="text-slate-600 text-sm my-1">
-                            <a href="{{ route('account.profile') }}" wire:navigate
-                                class="hover:text-primary {{ request()->routeIs('account.*') ? 'text-primary' : '' }}">
-                                Profile
-                            </a>
-                        </li>
-                        <li class="text-slate-600 text-sm my-1">
-                            <a href="" class="hover:text-primary">
-                                Pesanan
-                            </a>
-                        </li>
-                        {{-- <li class="text-slate-600 text-sm my-1"><a href="" class="hover:text-primary">
-                                    My Profile
-                                </a></li> --}}
+                        <x-sidebar-account :href="route('account.profile')" :active="request()->routeIs('account.profile')">
+                            Profile
+                        </x-sidebar-account>
+                        <x-sidebar-account :href="route('account.order-user')" :active="request()->routeIs('account.order-user')">
+                            Pesanan
+                        </x-sidebar-account>
                     </ul>
                 </div>
 
@@ -201,6 +174,5 @@
                 </div>
             </div>
         </div>
-</div>
-</section>
+    </section>
 </div>

@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 // route home utama
 Route::get('/', \App\Livewire\Home::class)->name('home');
+Route::get('/test_env', function(){
+    return config('midtrans') ?? 'null';
+});
+
+
 
 // untuk login
 Route::middleware('guest')->group(function () {
@@ -19,6 +24,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/profile', \App\Livewire\Account\Profile::class)->name('profile');
+        Route::get('/order-user', \App\Livewire\Account\OrderUser::class)->name('order-user');
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

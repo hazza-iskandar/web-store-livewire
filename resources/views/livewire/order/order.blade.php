@@ -1,20 +1,48 @@
 <div>
     <x-notifAlert />
-    {{-- @dd($orde) --}}
+    {{-- notifikasi --}}
+    <div x-data="{ openAlert: false, message: '', status: '', title: '' }"
+        x-on:message_alert.window="
+            console.log('ok')
+            openAlert=true;
+            status=$event.detail.status;
+            message=$event.detail.message;
+            title=$event.detail.title;
+        ">
+        <x-modal2 show="openAlert">
+            <i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-3"></i>
+            <h2 class="text-lg font-semibold mb-2" x-text="title"></h2>
+            <p class="text-gray-600 mb-4" x-text="message"></p>
+
+            <div class="flex justify-center space-x-3">
+                <button @click="openAlert = false" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                    Batal
+                </button>
+                {{-- data dari komponen akan di terima index products --}}
+                <a href="{{ route('account.profile') }}" wire:navigate @click="openAlert = false"
+                    class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                    Isi profile
+                </a>
+            </div>
+        </x-modal2>
+    </div>
+    {{-- end notifikasi --}}
     <section class="my-6 flex">
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
             {{-- Breadcrumb --}}
             <nav class="flex mb-10 text-sm text-gray-500" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center text-gray-700 hover:text-primary transition">
+                        <a href="{{ route('home') }}" wire:navigate
+                            class="inline-flex items-center text-gray-700 hover:text-primary transition">
                             <i class="fa-solid fa-house me-2"></i> Home
                         </a>
                     </li>
                     <li>
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-xs text-gray-400 mx-2"></i>
-                            <a href="{{ route('products.index') }}" wire:navigate class="text-gray-700 hover:text-primary transition">Produk</a>
+                            <a href="{{ route('products.index') }}" wire:navigate
+                                class="text-gray-700 hover:text-primary transition">Produk</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -122,7 +150,7 @@
                         <p>{!! formatRupiah($total_price) !!}</p>
                     </div>
 
-                    <button type="button"
+                    <button type="button" id="pay-button"
                         class="w-full mt-6 bg-primary text-white font-medium py-3 md:py-3.5 rounded-lg hover:bg-slate-800 transition text-sm md:text-base">
                         Buat Pesanan
                     </button>
@@ -130,4 +158,28 @@
             </form>
         </div>
     </section>
+
+    <div id="snap-container" class="fixed top-10 z-9999 flex justify-center "></div>
+</div>
+{{-- midtrans payment gateaway --}}
+{{-- <script>
+    function runMidtrans() {
+        var payButton = document.getElementById('pay-button');
+
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token.
+            // Also, use the embedId that you defined in the div above, here.
+            window.snap.pay('{{ $snapToken }}', {
+                // onpendign
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    console.log(result);
+                },
+            });
+        });
+    }
+    // jalankan fungsi midtrans ketika livewire siap
+    document.addEventListener('livewire:navigated', runMidtrans())
+</script> --}}
+
 </div>

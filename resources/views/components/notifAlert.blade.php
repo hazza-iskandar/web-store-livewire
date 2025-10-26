@@ -5,6 +5,7 @@
     x-show="show"
     x-cloak
     x-on:notify.window="
+    console.log('ok sudh ada datanya');
         show=true;
         status = $event.detail.status; {{-- ambil dari dispatch data yg dikirim --}}
         message = $event.detail.message;

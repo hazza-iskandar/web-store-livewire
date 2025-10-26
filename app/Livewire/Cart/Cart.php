@@ -101,7 +101,11 @@ class Cart extends Component
             ]);
             $result[] = $order;
         }
-        return $this->redirectRoute('order', ['codeOrder' => $result[0]->order_code_group], navigate: true);
+        if(!empty($result)){
+            return $this->redirectRoute('order', ['codeOrder' => $result[0]->order_code_group], navigate: true);
+        }else{
+            return $this->dispatch('notify', status:'failed', message:'belum tambah barang');
+        }
     }
 
     public function render()
