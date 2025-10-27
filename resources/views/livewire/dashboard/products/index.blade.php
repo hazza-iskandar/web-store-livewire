@@ -192,7 +192,7 @@
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
 
-                                        @if ($thumbnail)
+                                        @if ($thumbnail && !is_string($thumbnail))
                                             <div class="w-16 h-16 rounded-md my-5">
                                                 <img src="{{ $thumbnail->temporaryUrl() }}" alt=""
                                                     loading="lazy" class="w-full h-full object-cover">
@@ -221,10 +221,13 @@
                                         @if ($images)
                                             <div class="flex gap-2 flex-wrap my-5">
                                                 @foreach ($images as $image)
-                                                    <div class="w-16 h-16 rounded-md">
-                                                        <img src="{{ $image->temporaryUrl() }}" alt=""
-                                                            loading="lazy" class="w-full h-full object-cover">
-                                                    </div>
+                                                    {{-- ini akan mendeteksi file upload atau bukan --}}
+                                                    @if ($image instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile)
+                                                        <div class="w-16 h-16 rounded-md">
+                                                            <img src="{{ $image->temporaryUrl() }}" alt=""
+                                                                loading="lazy" class="w-full h-full object-cover">
+                                                        </div>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         @endif
@@ -469,7 +472,8 @@
                                                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                                 @enderror
                                                 @if ($images)
-                                                    @if (!is_array($images))
+                                                {{-- ini aka membedakan upload atau bukan --}}
+                                                    @if ($image instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile)
                                                         <div class="flex gap-2 flex-wrap my-5">
                                                             @foreach ($images as $image)
                                                                 <div class="w-16 h-16 rounded-md">

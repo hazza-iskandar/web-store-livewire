@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 #[\Livewire\Attributes\Layout('components.layouts.dashboard')]
 #[\Livewire\Attributes\Title('Dashboard Products')]
+
 class Index extends Component
 {
     use WithPagination, WithoutUrlPagination, WithFileUploads;
