@@ -90,7 +90,6 @@ class Cart extends Component
             $order = OrderModel::create([
                 'user_id' => Auth::user()->id,
                 'product_id' => $cart->product->id,
-                'cart_id' => $cart->id,
                 'qty' => $cart->qty, // untuk sementar 1 
                 'price' => $cart->product->price,
                 'status' => 'pending',
@@ -101,10 +100,15 @@ class Cart extends Component
             ]);
             $result[] = $order;
         }
-        if(!empty($result)){
-            return $this->redirectRoute('order', ['codeOrder' => $result[0]->order_code_group], navigate: true);
-        }else{
-            return $this->dispatch('notify', status:'failed', message:'belum tambah barang');
+
+        if (!empty($result)) {
+            // jika berhail maka hapus cart 
+            $result = collect($result);
+            CartModel::whereIn('product_id', $result->pluck('product_id'))->delete();
+
+            return $this->redirectRoute('order', ['codeOrder' => $result->first()->order_code_group], navigate: true);
+        } else {
+            return $this->dispatch('notify', status: 'failed', message: 'belum tambah barang');
         }
     }
 

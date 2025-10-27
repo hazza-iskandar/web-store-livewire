@@ -24,10 +24,7 @@ class Order extends Component
                     ->orWhere('order_code_group', $codeOrder);
             })
             ->get();
-            
-        if (!$this->orders) {
-            return view('livewire.404');
-        }
+
         $this->total_price = $this->orders->sum('total_price');
 
 
@@ -77,6 +74,10 @@ class Order extends Component
 
     public function render()
     {
+        if ($this->orders->isEmpty()) {
+            return view('livewire.404');
+        }
+        
         if ($this->orders->count() > 1) {
             $this->codeOrder = $this->orders->first()->order_code_group;
         } else {

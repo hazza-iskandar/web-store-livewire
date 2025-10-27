@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
+#[\Livewire\Attributes\Title('Pesanan User')]
 class OrderUser extends Component
 {
     use WithPagination, WithoutUrlPagination;
@@ -23,8 +24,19 @@ class OrderUser extends Component
         Order::where('order_code_group', $code)
             ->orWhere('order_code', $code)
             ->delete();
-            $this->dispatch('notify', status:'success', message:'order berhasil dihapus');
+        $this->dispatch('notify', status: 'success', message: 'order berhasil dihapus');
     }
+
+    public function canceledOrder($code)
+    {
+        Order::where('order_code_group', $code)
+            ->orWhere('order_code', $code)
+            ->update([
+                'status' => 'canceled'
+            ]);
+        $this->dispatch('notify', status: 'success', message: 'order telah dibatalkan');
+    }
+
     public function render()
     {
         $userId = Auth::id();

@@ -52,7 +52,7 @@
                                 <div class="flex items-center justify-between border-b py-2">
                                     <div class="flex items-center gap-3">
                                         <img src="{{ thumbnailCond($order->product->thumbnail) }}" alt="Product"
-                                            class="w-16 h-16 object-cover rounded-xl">
+                                            class="w-16 h-16 object-cover rounded-xl" loading="lazy">
                                         <div>
                                             <h4 class="text-base font-semibold text-gray-700">
                                                 {{ $order->product->title }}</h4>
@@ -76,16 +76,24 @@
                                 </div>
                             @endforeach
 
-                            <div class="flex gap-2 justify-end items-center my-3" x-data="{ openDeleteModal: false }">
+                            <div class="flex gap-2 justify-end items-center my-3" x-data="{ openDeleteModal: false, openCanceledModal:false }">
 
-                                <button type="button"
-                                    class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-3 py-2 text-center">
-                                    Bayar Sekarang
-                                </button>
-                                <button type="button" @click="openDeleteModal= true"
-                                    class="text-white bg-red-600 hover:bg-red-700 cursor-pointer font-medium rounded-lg text-sm px-3 py-2 text-center">
-                                    Hapus
-                                </button>
+                                @if ($order->status == 'pending')
+                                    <a href="{{ route('order', $order->order_code_group ?? $order->order_code) }}"
+                                        class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-3 py-2 text-center">
+                                        Bayar Sekarang
+                                    </a>
+                                    <button type="button" @click="openCanceledModal= true"
+                                        class="text-white bg-red-600 hover:bg-red-700 cursor-pointer font-medium rounded-lg text-sm px-3 py-2 text-center">
+                                        Batal Pesanan
+                                    </button>
+                                @elseif($order->status == 'canceled')
+                                    <button type="button" @click="openDeleteModal= true"
+                                        class="text-white bg-red-600 hover:bg-red-700 cursor-pointer font-medium rounded-lg text-sm px-3 py-2 text-center">
+                                        Hapus
+                                    </button>
+                                @endif
+
 
 
                                 <div class="text-right mt-3 font-bold text-gray-800">
@@ -95,8 +103,8 @@
                                 {{-- modal --}}
                                 <x-modal2 show="openDeleteModal">
                                     <i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-3"></i>
-                                    <h2 class="text-lg font-semibold mb-2">Hapus Data?</h2>
-                                    <p class="text-gray-600 mb-4">Apakah kamu yakin ingin menghapus data ini? Tindakan
+                                    <h2 class="text-lg font-semibold mb-2">Hapus Pesanan?</h2>
+                                    <p class="text-gray-600 mb-4">Apakah kamu yakin ingin menghapus pesanan ini? Tindakan
                                         ini
                                         tidak
                                         dapat
@@ -113,6 +121,25 @@
                                             @click="openDeleteModal = false"
                                             class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
                                             Hapus
+                                        </button>
+                                    </div>
+                                </x-modal2>
+                                <x-modal2 show="openCanceledModal">
+                                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-3"></i>
+                                    <h2 class="text-lg font-semibold mb-2">Batalkan Pesanan?</h2>
+                                    <p class="text-gray-600 mb-4">Apakah kamu yakin ingin membatalkan pesanan ini?</p>
+
+                                    <div class="flex justify-center space-x-3">
+                                        <button @click="openCanceledModal = false"
+                                            class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                                            kembali
+                                        </button>
+                                        {{-- data dari komponen akan di terima index products --}}
+                                        <button
+                                            wire:click='canceledOrder("{{ $order->order_code_group ?? $order->order_code }}")'
+                                            @click="openCanceledModal = false"
+                                            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                            Batalkan Pesanan
                                         </button>
                                     </div>
                                 </x-modal2>
