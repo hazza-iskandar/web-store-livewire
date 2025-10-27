@@ -8,13 +8,19 @@
                 <span
                     class="absolute top-4 bg-primary text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-r-md ">Baru</span>
             @endif
+            {{-- ini akan lihat stock nya --}}
+            @if ($product->stock == 0)
+                <span
+                    class="absolute top-12 bg-red-300 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-r-md ">Stok Habis</span>
+            @endif
 
-            <img class="rounded-t-lg h-full object-cover" src="{{ thumbnailCond($product->thumbnail) }}" alt="" loading="lazy" />
+            <img class="rounded-t-lg h-full object-cover" src="{{ thumbnailCond($product->thumbnail) }}" alt=""
+                loading="lazy" />
         </div>
         <div class="mt-2 p-3">
-                <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900 truncate">
-                    {{ $product->title }}
-                </h5>
+            <h5 class="text-[16px] sm:text-lg font-normal tracking-tight text-slate-900 truncate">
+                {{ $product->title }}
+            </h5>
             <div class="pt-2">
                 <p class="text-primary text-sm md:text-lg">{!! formatRupiah($product->price) !!}</p>
                 <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">
@@ -23,8 +29,10 @@
         </div>
     </a>
 
-    <button type="button" wire:click="addToCart('{{ $product->id }}')"
-        class="hidden md:block absolute z-10 transition-all duration-500 group-hover:bottom-40 group-hover:opacity-100 opacity-0 bottom-37 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
-        Tambah Ke Keranjang
-    </button>
+    @if ($product->stock >= '1')
+        <button type="button" wire:click="addToCart('{{ $product->id }}')"
+            class="hidden md:block absolute z-10 transition-all duration-500 group-hover:bottom-40 group-hover:opacity-100 opacity-0 bottom-37 right-0 left-0 text-center bg-black h-10 text-white cursor-pointer">
+            Tambah Ke Keranjang
+        </button>
+    @endif
 </div>
