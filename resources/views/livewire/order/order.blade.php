@@ -1,31 +1,5 @@
 <div>
     <x-notifAlert />
-    {{-- notifikasi --}}
-    <div x-data="{ openAlert: false, message: '', status: '', title: '' }"
-        x-on:message_alert.window="
-            console.log('ok')
-            openAlert=true;
-            status=$event.detail.status;
-            message=$event.detail.message;
-            title=$event.detail.title;
-        ">
-        <x-modal2 show="openAlert">
-            <i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-3"></i>
-            <h2 class="text-lg font-semibold mb-2" x-text="title"></h2>
-            <p class="text-gray-600 mb-4" x-text="message"></p>
-
-            <div class="flex justify-center space-x-3">
-                <button @click="openAlert = false" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                    Batal
-                </button>
-                {{-- data dari komponen akan di terima index products --}}
-                <a href="{{ route('account.profile') }}" wire:navigate @click="openAlert = false"
-                    class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                    Isi profile
-                </a>
-            </div>
-        </x-modal2>
-    </div>
     {{-- end notifikasi --}}
     <section class="my-6 flex">
         <div class="container mx-auto px-4 md:px-6 lg:px-8">
@@ -150,10 +124,14 @@
                         <p>{!! formatRupiah($total_price) !!}</p>
                     </div>
 
-                    <button type="button" id="pay-button"
-                        class="w-full mt-6 bg-primary text-white font-medium py-3 md:py-3.5 rounded-lg hover:bg-slate-800 transition text-sm md:text-base">
-                        Buat Pesanan
-                    </button>
+                    @if (!empty($user->profile))
+                        <button type="button" id="pay-button"
+                            class="w-full mt-6 bg-primary text-white font-medium py-3 md:py-3.5 rounded-lg hover:bg-slate-800 transition text-sm md:text-base">
+                            Buat Pesanan
+                        </button>
+                    @else
+                    <p class="text-center mt-4 text-slate-400 font-normal ">Harap Lengkapi Profile Anda Sebelum Memesan <a href="{{ route('account.profile') }}" class="font-bold underline">Disini!</a></p>
+                    @endif
                 </div>
             </form>
         </div>

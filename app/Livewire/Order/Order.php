@@ -27,12 +27,6 @@ class Order extends Component
 
         $this->total_price = $this->orders->sum('total_price');
 
-
-        // $user = Auth::user();
-
-        // if (!$user->profile || empty($user->profile->fullname) && empty($user->profile->address)) {
-        //     $this->dispatch('message_alert', status: 'failed', message: 'Nama lengkap/alamat belum diisi', title: 'Profile belum diisi');
-        // }
         // $orders = OrderModel::with('product')->whereIn('id', $this->orders->pluck('id'))->get();
 
         // // $item_details = [];
