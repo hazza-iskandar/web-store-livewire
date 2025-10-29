@@ -18,11 +18,10 @@ class BannerFactory extends Factory
     {
         return [
             'product_id' => rand(1, 10),
-            'category_id' => rand(1, 3),
             'title' => fake('id_ID')->sentence(),
             'desc' => fake()->sentence(8),
-            'type' => fake()->randomElement(['banner', 'highlight', 'product']),
-             'is_active' => fake()->boolean(80), // 80% aktif
+            'type' => fake()->randomElement(['highlight', 'slider']),
+             'is_active' => fake()->boolean(80), // 80% aktifk
         ];
     }
 }

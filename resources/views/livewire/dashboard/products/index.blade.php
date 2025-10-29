@@ -286,6 +286,7 @@
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
                                 </x-dashboard.table.row>
                             @endif
+                            
                             <x-dashboard.table.row
                                 class="w-10 p-3">{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</x-dashboard.table.row>
 

@@ -11,6 +11,11 @@ class Banner extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts =[
+        'is_active' => 'boolean',
+        'btn_detail' => 'boolean',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

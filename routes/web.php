@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/draft', \App\Livewire\Dashboard\Products\Draft::class)->name('draft');
         });
         Route::get('/categories', \App\Livewire\Dashboard\Categories\Index::class)->name('categories.index');
+        Route::get('/hightlight-product', \App\Livewire\Dashboard\Hightlight\Index::class)->name('hightlight.index');
     });
 
     // cart

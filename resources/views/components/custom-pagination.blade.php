@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div class="flex flex-col items-center mt-10">
+    <div class="flex flex-col items-center mt-5">
         <!-- Help text -->
         <span class="text-sm text-gray-700 ">
             Showing <span class="font-semibold text-gray-900">{{ $paginator->firstItem() }}</span> to <span

@@ -1,6 +1,7 @@
 @props([
     'data' => null,
     'productPage' => true,
+    'updatePopup' => true,
 ])
 <td x-data="{ openDropdown: false, openModal: false, openDeleteModal: false, openViewModal: false }" class="relative text-center">
     <i class="fas fa-ellipsis-v text-gray-500 hover:text-primary cursor-pointer"
@@ -23,9 +24,11 @@
     </div>
 
     {{-- modal detail product --}}
-    <x-modal2 show="openModal" class="w-160">
-        {{ $slot }}
-    </x-modal2>
+    @if ($updatePopup)
+        <x-modal2 show="openModal" class="w-160">
+            {{ $slot }}
+        </x-modal2>
+    @endif
 
     {{-- modal delete --}}
     <x-modal2 show="openDeleteModal">

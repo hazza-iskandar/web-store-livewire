@@ -54,12 +54,14 @@ class Home extends Component
             ->where('status', 'publish')
             ->get();
 
-        $sliders = Banner::with('product', 'category:id,title')
+        $sliders = Banner::with('product.category:id,title')
             ->where('type', 'slider')
+            ->where('is_active', true)
             ->get();
 
-        $hightlight = Banner::with('product', 'category:id,title')
+        $hightlight = Banner::with('product.category:id,title')
             ->where('type', 'highlight')
+            ->where('is_active', true)
             ->first();
 
         return view('livewire.index', compact(

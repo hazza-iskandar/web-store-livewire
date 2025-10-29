@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('title');
-            $table->string('desc');
+            $table->text('desc');
             $table->string('img_banner')->nullable();
-            $table->enum('type', ['banner', 'slider', 'highlight', 'product']);
-            $table->boolean('is_active')->default(true);
+            $table->enum('type', ['slider', 'highlight']);
+            $table->boolean('is_active')->default(false);
+            $table->boolean('btn_detail')->default(false);
             $table->timestamps();
         });
     }
