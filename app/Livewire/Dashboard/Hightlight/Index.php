@@ -24,10 +24,20 @@ class Index extends Component
         $img_banner,
         $desc = '';
 
+    public $search = '',
+        $filterType = '',
+        $filterStatus = '';
+
     public $chooseProduct;
     public $btnDetailCond = false;
 
     public $bannerId;
+
+    public $bannerSelected,
+        $selectBtnCond = false,
+        $selectAll = false,
+        $selectedId = [];
+
 
     public function updatedChooseProduct($id)
     {
@@ -47,6 +57,53 @@ class Index extends Component
             $this->img_banner = $product->thumbnail;
             $this->btnDetailCond = true;
         }
+    }
+
+    // untuk muncul select
+    public function selectBtn()
+    {
+        $this->selectBtnCond = !$this->selectBtnCond;
+    }
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedId = $this->bannerSelected->pluck('id')->toArray();
+        } else {
+            $this->selectedId = [];
+        }
+    }
+
+    public function updatedSelectedId()
+    {
+        $this->selectAll = count($this->selectedId) == $this->bannerSelected->count();
+    }
+
+    public function deleteItems()
+    {
+        if (empty($this->selectedId)) {
+            return $this->dispatch('notify', status: 'failed', message: 'data gagal dihapus');
+        }
+
+        $banners = Banner::whereIn('id', $this->selectedId)->get();
+        foreach ($banners as $banner) {
+            if (!empty($banner->img_banner)) {
+                if (Storage::disk('public')->exists($banner->img_banner)) {
+                    Storage::disk('public')->delete($banner->img_banner);
+                }
+            }
+
+            $banner->delete();
+        }
+
+        // reset selected
+        $this->selectedId = [];
+        $this->selectAll = false;
+        $this->bannerSelected = Banner::all();
+        $this->resetPage();
+        $this->dispatch('$refresh');
+
+        $this->dispatch('notify', status: 'success', message: 'banner hightlight berhasil dihapus');
     }
 
     // jika ada delete
@@ -127,7 +184,7 @@ class Index extends Component
 
         if ($banner) {
             $this->dispatch('notify', status: 'success', message: 'banner hightlight berhasil disimpan');
-            $this->reset('title', 'desc', 'type', 'img_banner', 'btn_detail', 'is_active');
+            $this->reset('title', 'desc', 'type', 'img_banner', 'btn_detail', 'is_active', 'chooseProduct');
         } else {
             $this->dispatch('notify', status: 'failed', message: 'banner hightlight gagal simpan');
         }
@@ -163,12 +220,21 @@ class Index extends Component
     }
     public function resetForm()
     {
-        $this->reset('title', 'desc', 'type', 'img_banner', 'btn_detail', 'is_active');
+        $this->reset('title', 'desc', 'type', 'img_banner', 'btn_detail', 'is_active','chooseProduct');
     }
 
     public function render()
     {
         $banners = Banner::with('product', 'category')
+            ->when($this->search, function($q){
+                $q->whereAny(['title'], 'like', "%{$this->search}%");
+            })
+            ->when($this->filterType, function($q){
+                $q->where('type', $this->filterType);
+            })
+            ->when($this->filterStatus, function($q){
+                $q->where('is_active', $this->filterStatus);
+            })
             ->latest()
             ->paginate(5);
 
@@ -177,6 +243,7 @@ class Index extends Component
             ->latest()
             ->get();
 
+        $this->bannerSelected = Banner::all();
 
         return view('livewire.dashboard.hightlight.index', compact('banners', 'products'));
     }
