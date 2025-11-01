@@ -27,18 +27,18 @@ class Order extends Component
 
         $this->total_price = $this->orders->sum('total_price');
 
-        // $orders = OrderModel::with('product')->whereIn('id', $this->orders->pluck('id'))->get();
+        $orders = OrderModel::with('product')->whereIn('id', $this->orders->pluck('id'))->get();
 
-        // // $item_details = [];
-        // // foreach ($orders as $order) {
-        // //     $item_details[] = [
-        // //         'id' => $order->id,
-        // //         'title' => $order->product->title,
-        // //         'price' => $order->product->price,
-        // //         'quantity' => $order->qty,
-        // //     ];
-        // // }
-        // // Set your Merchant Server Key
+        // $item_details = [];
+        // foreach ($orders as $order) {
+        //     $item_details[] = [
+        //         'id' => $order->id,
+        //         'title' => $order->product->title,
+        //         'price' => $order->product->price,
+        //         'quantity' => $order->qty,
+        //     ];
+        // }
+        // Set your Merchant Server Key
         // \Midtrans\Config::$serverKey = config('midtrans.midtrans_server_key');
         // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         // \Midtrans\Config::$isProduction = config('midtrans.midtrans_isProduction');
@@ -53,10 +53,10 @@ class Order extends Component
         //         'gross_amount' => $this->total_price,
         //     ),
         //     'customer_details' => array(
-        //         'username' => $user->username,
-        //         'fullname' => $user->profile->fullname,
-        //         'email' => $user->email,
-        //         'phone' => $user->profile->phone,
+        //         'username' => $this->user->username,
+        //         'fullname' => $this->user->profile->fullname ?? '',
+        //         'email' => $this->user->email,
+        //         'phone' => $this->user->profile->phone ?? '',
         //     ),
         //     // 'item_details' => $item_details
         // );

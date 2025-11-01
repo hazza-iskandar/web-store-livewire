@@ -39,7 +39,7 @@
 
                 <button type="submit" wire:loading.attr="disabled" wire:loading.class="bg-[#980e0e]"
                     class="text-white bg-primary hover:bg-[#980e0e] focus:ring-4 mt-6 focus:outline-none focus:ring-primary font-medium rounded-sm text-[16px] w-full flex justify-center gap-2 px-5 py-3.5 text-center cursor-pointer">
-                    <span>Buat Akun</span>
+                    <span>Masuk</span>
 
 
                     <div role="status" wire:loading wire:target="autenticate">
