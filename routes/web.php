@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/order-user', \App\Livewire\Account\OrderUser::class)->name('order-user');
     });
 
-    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::middleware('is_admin')->prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', \App\Livewire\Dashboard\Dashboard::class)->name('index');
         Route::prefix('products')->name('products.')->group(function(){
             Route::get('/', \App\Livewire\Dashboard\Products\Index::class)->name('index');
