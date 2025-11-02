@@ -8,8 +8,7 @@
             <div class="relative overflow-x-auto sm:rounded-lg bg-white">
 
                 {{-- filter --}}
-                <div
-                    class="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white p-2 rounded-xl mb-1">
+                <div class="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white p-2 rounded-xl mb-1">
                     <!-- Search -->
                     <div class="flex items-center w-full sm:w-1/3">
                         <input type="text" placeholder="Cari banner..." wire:model.live="search"
@@ -74,85 +73,88 @@
                         </x-modal2>
                     @endif
                 </div>
+                <div class="overflow-x-auto">
+                    <x-dashboard.table>
+                        <x-dashboard.table.tableThead>
+                            @if ($selectBtnCond)
+                                <x-dashboard.table.headField>
+                                    <input id="select-all" type="checkbox" wire:model.live='selectAll'
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                </x-dashboard.table.headField>
+                            @endif
 
-                <x-dashboard.table>
-                    <x-dashboard.table.tableThead>
-                        @if ($selectBtnCond)
-                            <x-dashboard.table.headField>
-                                <input id="select-all" type="checkbox" wire:model.live='selectAll'
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
-                            </x-dashboard.table.headField>
-                        @endif
+                            <x-dashboard.table.headField name="No" />
+                            <x-dashboard.table.headField name="Gambar" />
+                            <x-dashboard.table.headField name="Nama" />
+                            <x-dashboard.table.headField name="Deskripsi" />
+                            <x-dashboard.table.headField name="Type" />
+                            <x-dashboard.table.headField name="Status" />
+                            <x-dashboard.table.headField name="Status Btn" />
+                        </x-dashboard.table.tableThead>
 
-                        <x-dashboard.table.headField name="No" />
-                        <x-dashboard.table.headField name="Gambar" />
-                        <x-dashboard.table.headField name="Nama" />
-                        <x-dashboard.table.headField name="Deskripsi" />
-                        <x-dashboard.table.headField name="Type" />
-                        <x-dashboard.table.headField name="Status" />
-                        <x-dashboard.table.headField name="Status Btn" />
-                    </x-dashboard.table.tableThead>
+                        {{-- tbody --}}
+                        <x-dashboard.table.tableTbody>
+                            @forelse ($banners as $banner)
+                                <tr>
+                                    @if ($selectBtnCond)
+                                        <x-dashboard.table.row class="w-10 p-3">
+                                            <input id="select-all" type="checkbox" wire:model.live='selectedId'
+                                                value="{{ $banner->id }}"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                        </x-dashboard.table.row>
+                                    @endif
 
-                    {{-- tbody --}}
-                    <x-dashboard.table.tableTbody>
-                        @forelse ($banners as $banner)
-                            <tr>
-                                @if ($selectBtnCond)
                                     <x-dashboard.table.row class="w-10 p-3">
-                                        <input id="select-all" type="checkbox" wire:model.live='selectedId'
-                                            value="{{ $banner->id }}"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                        {{ $loop->iteration + ($banners->currentPage() - 1) * $banners->perPage() }}
                                     </x-dashboard.table.row>
-                                @endif
 
-                                <x-dashboard.table.row class="w-10 p-3">
-                                    {{ $loop->iteration + ($banners->currentPage() - 1) * $banners->perPage() }}
-                                </x-dashboard.table.row>
+                                    <x-dashboard.table.row class="w-34 p-3">
+                                        <img src="{{ thumbnailCond($banner->img_banner) }}" alt=""
+                                            loading="lazy">
+                                    </x-dashboard.table.row>
 
-                                <x-dashboard.table.row class="w-34 p-3">
-                                    <img src="{{ thumbnailCond($banner->img_banner) }}" alt="" loading="lazy">
-                                </x-dashboard.table.row>
+                                    <x-dashboard.table.row>{{ Str::words($banner->title, 10, '...') }}</x-dashboard.table.row>
 
-                                <x-dashboard.table.row>{{ Str::words($banner->title, 10, '...') }}</x-dashboard.table.row>
+                                    <x-dashboard.table.row
+                                        class="w-100 p-3">{{ Str::words($banner->desc, 10, '...') }}</x-dashboard.table.row>
 
-                                <x-dashboard.table.row
-                                    class="w-100 p-3">{{ Str::words($banner->desc, 15, '...') }}</x-dashboard.table.row>
+                                    <x-dashboard.table.row class="w-14 p-3">{{ $banner->type }}</x-dashboard.table.row>
 
-                                <x-dashboard.table.row class="w-14 p-3">{{ $banner->type }}</x-dashboard.table.row>
+                                    <x-dashboard.table.row>
+                                        @if ($banner->is_active)
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Aktif</span>
+                                        @else
+                                            <span
+                                                class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Mati</span>
+                                        @endif
+                                    </x-dashboard.table.row>
 
-                                <x-dashboard.table.row>
-                                    @if ($banner->is_active)
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Aktif</span>
-                                    @else
-                                        <span
-                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Mati</span>
-                                    @endif
-                                </x-dashboard.table.row>
-
-                                <x-dashboard.table.row>
-                                    @if ($banner->btn_detail)
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Aktif</span>
-                                    @else
-                                        <span
-                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Mati</span>
-                                    @endif
-                                </x-dashboard.table.row>
+                                    <x-dashboard.table.row>
+                                        @if ($banner->btn_detail)
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Aktif</span>
+                                        @else
+                                            <span
+                                                class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Mati</span>
+                                        @endif
+                                    </x-dashboard.table.row>
 
 
-                                {{-- aksi --}}
-                                <x-dashboard.table.aksiTable :data="$banner" :updatePopup="false" :productPage="false" />
-                            </tr>
-                        @empty
-                            <tr>
-                                <x-dashboard.table.row colspan="10">
-                                    <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
-                                </x-dashboard.table.row>
-                            </tr>
-                        @endforelse
-                    </x-dashboard.table.tableTbody>
-                </x-dashboard.table>
+                                    {{-- aksi --}}
+                                    <x-dashboard.table.aksiTable :data="$banner" :updatePopup="false"
+                                        :productPage="false" />
+                                </tr>
+                            @empty
+                                <tr>
+                                    <x-dashboard.table.row colspan="10">
+                                        <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
+                                    </x-dashboard.table.row>
+                                </tr>
+                            @endforelse
+                        </x-dashboard.table.tableTbody>
+                    </x-dashboard.table>
+                </div>
             </div>
 
             {{-- Pagination placeholder --}}
@@ -229,7 +231,7 @@
 
                     {{-- Col2: upload img --}}
                     <div class="w-full min-h-30 max-h full ">
-                        <div class="flex gap-5 items-center justify-center w-full">
+                        <div class="flex flex-col md:flex-row gap-5 items-center justify-center w-full">
                             <label for="dropzone-file"
                                 class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">

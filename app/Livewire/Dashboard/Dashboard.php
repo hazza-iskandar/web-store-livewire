@@ -78,7 +78,7 @@ class Dashboard extends Component
         $stockProducts = Product::where('status', 'publish')->orderBy('stock', 'asc')->limit(5)->get();
         $orders = Order::with('product')
             ->latest()
-            ->limit(10)
+            ->limit(5)
             ->get()
             ->groupBy(function ($order) {
                 return $order->order_code_group ?? $order->order_code;

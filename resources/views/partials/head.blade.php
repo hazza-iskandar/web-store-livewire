@@ -12,13 +12,13 @@
 
 {{-- tailwind --}}
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-{{-- <link rel="stylesheet" href="{{ asset('build/assets/app-g1f6m9xN.css') }}">
-<script src="{{ asset('build/assets/app-CwsFh6xd.js') }}"></script> --}}
+{{-- <link rel="stylesheet" href="{{ asset() }}">
+<script src="{{ asset() }}"></script> --}}
 
 {{-- midtrans payment gateaway --}}
 {{-- buat production --}}
 {{-- <script type="text/javascript" src="https://app.stg.midtrans.com/snap/snap.js"
         data-client-key="{{ config('midtrans.midtrans_client_key') }}"></script> --}}
 {{-- buat sandbox --}}
-<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-    data-client-key="{{ config('midtrans.midtrans_client_key') }}"></script>
+{{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.midtrans_client_key') }}"></script> --}}

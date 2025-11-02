@@ -23,7 +23,7 @@
             </h5>
             <div class="pt-2">
                 <p class="text-primary text-sm md:text-lg">{!! formatRupiah($product->price) !!}</p>
-                <p class="mt-2 text-slate-600 sm:text-sm md:block hidden">
+                <p class="mt-2 text-slate-600 sm:text-sm block">
                     {{ Str::words($product->desc, 8, '...') }}</p>
             </div>
         </div>

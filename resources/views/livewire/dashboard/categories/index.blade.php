@@ -20,11 +20,7 @@
                 <div class="flex gap-3">
                     <button wire:click='selectBtn'
                         class="text-white bg-primary hover:bg-primary-dark focus:ring-4 cursor-pointer font-medium rounded-lg text-sm px-4 py-2 text-center">
-                        @if ($selectBtnCond)
-                            Close Select Item
-                        @else
-                            Select Item
-                        @endif
+                        Select Item
                     </button>
                     @if ($selectBtnCond)
                         <button @click="openDeleteModal= true"
@@ -110,102 +106,106 @@
                 </div>
             </div>
 
-            <x-dashboard.table.table>
-                <x-dashboard.table.tableThead>
-                    @if ($selectBtnCond)
-                        <x-dashboard.table.headField>
-                            <input id="select-all" type="checkbox" wire:model.live='selectAll'
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
-                        </x-dashboard.table.headField>
-                    @endif
-                    <x-dashboard.table.headField name="No" />
-                    <x-dashboard.table.headField name="Tanggal" />
-                    <x-dashboard.table.headField name="Nama" />
-                    <x-dashboard.table.headField name="Deskripsi" />
-                </x-dashboard.table.tableThead>
+            <div class="overflow-x-auto">
+                <x-dashboard.table.table>
+                    <x-dashboard.table.tableThead>
+                        @if ($selectBtnCond)
+                            <x-dashboard.table.headField>
+                                <input id="select-all" type="checkbox" wire:model.live='selectAll'
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                            </x-dashboard.table.headField>
+                        @endif
+                        <x-dashboard.table.headField name="No" />
+                        <x-dashboard.table.headField name="Tanggal" />
+                        <x-dashboard.table.headField name="Nama" />
+                        <x-dashboard.table.headField name="Deskripsi" />
+                    </x-dashboard.table.tableThead>
 
-                <x-dashboard.table.tableTbody>
-                    @forelse ($categories as $category)
-                        <tr>
-                            @if ($selectBtnCond)
+                    <x-dashboard.table.tableTbody>
+                        @forelse ($categories as $category)
+                            <tr>
+                                @if ($selectBtnCond)
+                                    <x-dashboard.table.row class="w-10 p-3">
+                                        <input id="select-all" type="checkbox" wire:model.live='selectedId'
+                                            value="{{ $category->id }}"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                    </x-dashboard.table.row>
+                                @endif
                                 <x-dashboard.table.row class="w-10 p-3">
-                                    <input id="select-all" type="checkbox" wire:model.live='selectedId'
-                                        value="{{ $category->id }}"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                    {{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }}
                                 </x-dashboard.table.row>
-                            @endif
-                            <x-dashboard.table.row class="w-10 p-3">
-                                {{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }}
-                            </x-dashboard.table.row>
 
-                            <x-dashboard.table.row class="w-30 p-4">
-                                {{ date_format($category->created_at, 'Y-m-d') }}
-                            </x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-4">
+                                    {{ date_format($category->created_at, 'Y-m-d') }}
+                                </x-dashboard.table.row>
 
-                            <x-dashboard.table.row class="w-30 p-4">
-                                {{ $category->title }}
-                            </x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-4">
+                                    {{ $category->title }}
+                                </x-dashboard.table.row>
 
-                            <x-dashboard.table.row>
-                                {{ Str::words($category->desc, 20, '...') }}
-                            </x-dashboard.table.row>
+                                <x-dashboard.table.row>
+                                    {{ Str::words($category->desc, 10, '...') }}
+                                </x-dashboard.table.row>
 
-                            <x-dashboard.table.aksiTable :data="$category" :productPage="false">
-                                {{-- untuk edit --}}
-                                <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Tambah Category
-                                </h2>
-                                <form wire:submit="updateCategory({{ $category->id }})" class="space-y-6">
-                                    {{-- title --}}
-                                    <div>
-                                        <label class="block text-start mb-2 text-sm font-medium text-gray-700">Judul
-                                            Category</label>
-                                        <input type="text" wire:model.live.debounce.300="title"
-                                            class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                            placeholder="Masukkan judul Category">
-                                        @error('title')
-                                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                        @enderror
-                                    </div>
+                                <x-dashboard.table.aksiTable :data="$category" :productPage="false">
+                                    {{-- untuk edit --}}
+                                    <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Tambah Category
+                                    </h2>
+                                    <form wire:submit="updateCategory({{ $category->id }})" class="space-y-6">
+                                        {{-- title --}}
+                                        <div>
+                                            <label class="block text-start mb-2 text-sm font-medium text-gray-700">Judul
+                                                Category</label>
+                                            <input type="text" wire:model.live.debounce.300="title"
+                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                placeholder="Masukkan judul Category">
+                                            @error('title')
+                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
 
-                                    {{-- desc  --}}
-                                    <div>
-                                        <label
-                                            class="block text-start mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
-                                        <textarea wire:model="desc" rows="4"
-                                            class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                            placeholder="Tulis deskripsi category..."></textarea>
-                                        @error('desc')
-                                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                    {{-- submit --}}
-                                    <div class="flex justify-end space-x-3 pt-4 border-t">
-                                        <button type="submit" wire:loading.attr='false'
-                                            wire:loading.class="bg-[#980e0e]"
-                                            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition">
-                                            <i class="fa-solid fa-pen-to-square me-1"></i> update
-                                            <div role="status" wire:loading wire:target="updateCategory">
-                                                <i class="fa-solid fa-spinner text-gray-200 animate-spin"></i>
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </form>
-                            </x-dashboard.table.aksiTable>
-                        </tr>
+                                        {{-- desc  --}}
+                                        <div>
+                                            <label
+                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
+                                            <textarea wire:model="desc" rows="4"
+                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                placeholder="Tulis deskripsi category..."></textarea>
+                                            @error('desc')
+                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        {{-- submit --}}
+                                        <div class="flex justify-end space-x-3 pt-4 border-t">
+                                            <button type="submit" wire:loading.attr='false'
+                                                wire:loading.class="bg-[#980e0e]"
+                                                class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition">
+                                                <i class="fa-solid fa-pen-to-square me-1"></i> update
+                                                <div role="status" wire:loading wire:target="updateCategory">
+                                                    <i class="fa-solid fa-spinner text-gray-200 animate-spin"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </x-dashboard.table.aksiTable>
+                            </tr>
 
-                    @empty
-                        <tr>
-                            <x-dashboard.table.row colspan="5">
-                                <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
-                            </x-dashboard.table.row>
-                        </tr>
-                    @endforelse
-                </x-dashboard.table.tableTbody>
-            </x-dashboard.table.table>
+                        @empty
+                            <tr>
+                                <x-dashboard.table.row colspan="5">
+                                    <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
+                                </x-dashboard.table.row>
+                            </tr>
+                        @endforelse
+                    </x-dashboard.table.tableTbody>
+                </x-dashboard.table.table>
+            </div>
+            
             <div class="mt-4">
                 {{ $categories->links('components.custom-pagination') }}
             </div>
+
         </div>
     </div>
 </div>

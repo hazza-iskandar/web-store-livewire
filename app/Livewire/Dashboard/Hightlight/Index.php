@@ -87,6 +87,7 @@ class Index extends Component
 
         $banners = Banner::whereIn('id', $this->selectedId)->get();
         foreach ($banners as $banner) {
+        // eroro bagian ini 
             if (!empty($banner->img_banner)) {
                 if (Storage::disk('public')->exists($banner->img_banner)) {
                     Storage::disk('public')->delete($banner->img_banner);
@@ -169,10 +170,10 @@ class Index extends Component
 
         $banner = Banner::updateOrCreate(
             [
-                'id' => $this->bannerId
+                'id' => $this->bannerId,
             ],
             [
-                'product_id' => $this->chooseProduct ?? NULL,
+                'product_id' => $this->chooseProduct,
                 'title' => $this->title,
                 'desc' => $this->desc,
                 'img_banner' => $path ?? NULL,

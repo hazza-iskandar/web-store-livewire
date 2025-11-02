@@ -25,13 +25,13 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true
         ]);
         User::factory()->create([
-            'username' => 'Hazza Iskandar',
-            'email' => 'hazza@gmail.com',
+            'username' => 'dummy',
+            'email' => 'dummy@gmail.com',
             'password' => Hash::make('password')
         ]);
         
-        Category::factory(3)->create();
-        Product::factory(100)->create();
-        Banner::factory(8)->create();
+        // Category::factory(3)->create();
+        // Product::factory(100)->create();
+        // Banner::factory(8)->create();
     }
 }

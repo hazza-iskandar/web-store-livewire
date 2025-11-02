@@ -95,6 +95,7 @@ class Index extends Component
     {
         $this->selectBtnCond = !$this->selectBtnCond;
     }
+    
     // ketika slect all
     public function updatedSelectAll($value)
     {
@@ -196,6 +197,7 @@ class Index extends Component
     {
         $this->reset('title', 'slug', 'category', 'price', 'stock', 'status', 'desc', 'thumbnail', 'images');
     }
+    
     public function storeProduct()
     {
         // modfikasiasi rules

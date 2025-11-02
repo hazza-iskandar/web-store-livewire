@@ -65,265 +65,271 @@
                 </div>
             </div>
 
-            <x-dashboard.table.table>
-                <x-dashboard.table.tableThead>
-                    @if ($selectBtnCond)
-                        <x-dashboard.table.headField>
-                            <input id="select-all" type="checkbox" wire:model.live='selectAll'
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
-                        </x-dashboard.table.headField>
-                    @endif
+            <div class="overflow-x-auto">
+                <x-dashboard.table.table>
+                    <x-dashboard.table.tableThead>
+                        @if ($selectBtnCond)
+                            <x-dashboard.table.headField>
+                                <input id="select-all" type="checkbox" wire:model.live='selectAll'
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                            </x-dashboard.table.headField>
+                        @endif
 
-                    <x-dashboard.table.headField name="No" />
-                    <x-dashboard.table.headField name="Tanggal" />
-                    <x-dashboard.table.headField name="Gambar" />
-                    <x-dashboard.table.headField name="Nama" />
-                    <x-dashboard.table.headField name="Kategori" />
-                    <x-dashboard.table.headField name="Stock" />
-                    <x-dashboard.table.headField name="Harga" />
-                    <x-dashboard.table.headField name="Status" />
-                    <x-dashboard.table.headField name="Status Stok" />
-                </x-dashboard.table.tableThead>
+                        <x-dashboard.table.headField name="No" />
+                        <x-dashboard.table.headField name="Tanggal" />
+                        <x-dashboard.table.headField name="Gambar" />
+                        <x-dashboard.table.headField name="Nama" />
+                        <x-dashboard.table.headField name="Kategori" />
+                        <x-dashboard.table.headField name="Stock" />
+                        <x-dashboard.table.headField name="Harga" />
+                        <x-dashboard.table.headField name="Status" />
+                        <x-dashboard.table.headField name="Status Stok" />
+                    </x-dashboard.table.tableThead>
 
-                <x-dashboard.table.tableTbody>
-                    @forelse ($products as $index => $product)
-                        <tr>
-                            @if ($selectBtnCond)
-                                <x-dashboard.table.row class="w-10 p-3">
-                                    <input id="select-all" type="checkbox" wire:model.live='selectedId'
-                                        value="{{ $product->id }}"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
-                                </x-dashboard.table.row>
-                            @endif
-                            <x-dashboard.table.row
-                                class="w-10 p-3">{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</x-dashboard.table.row>
-
-                            <x-dashboard.table.row
-                                class="w-30 p-3">{{ date_format($product->created_at, 'Y-m-d') }}</x-dashboard.table.row>
-                            <x-dashboard.table.row class="w-30 p-3">
-                                <img src="{{ thumbnailCond($product->thumbnail) }}" alt="" class="object-cover"
-                                    loading="lazy">
-                            </x-dashboard.table.row>
-                            <x-dashboard.table.row>{{ $product->title }}</x-dashboard.table.row>
-                            <x-dashboard.table.row
-                                class="w-30 p-3">{{ $product->category->title }}</x-dashboard.table.row>
-                            <x-dashboard.table.row class="w-30 p-3">{{ $product->stock }}</x-dashboard.table.row>
-                            <x-dashboard.table.row class="w-30 p-3">{!! formatRupiah($product->price) !!}</x-dashboard.table.row>
-                            <x-dashboard.table.row class="w-30 p-3">
-                                <span
-                                    class="bg-primary text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{ $product->status }}</span>
-                            </x-dashboard.table.row>
-                            <x-dashboard.table.row class="w-30 p-3">
-                                @if ($product->stock >= 1)
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Tersedia</span>
-                                @else
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Habis</span>
+                    <x-dashboard.table.tableTbody>
+                        @forelse ($products as $index => $product)
+                            <tr>
+                                @if ($selectBtnCond)
+                                    <x-dashboard.table.row class="w-10 p-3">
+                                        <input id="select-all" type="checkbox" wire:model.live='selectedId'
+                                            value="{{ $product->id }}"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                    </x-dashboard.table.row>
                                 @endif
-                            </x-dashboard.table.row>
+                                <x-dashboard.table.row
+                                    class="w-10 p-3">{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</x-dashboard.table.row>
 
-                            {{-- aksi --}}
-                            <x-dashboard.table.aksiTable :data="$product">
-                                {{-- update data --}}
-                                <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Edit Product
-                                </h2>
+                                <x-dashboard.table.row
+                                    class="w-30 p-3">{{ date_format($product->created_at, 'Y-m-d') }}</x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-3">
+                                    <img src="{{ thumbnailCond($product->thumbnail) }}" alt=""
+                                        class="object-cover" loading="lazy">
+                                </x-dashboard.table.row>
+                                <x-dashboard.table.row>{{ $product->title }}</x-dashboard.table.row>
+                                <x-dashboard.table.row
+                                    class="w-30 p-3">{{ $product->category->title }}</x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-3">{{ $product->stock }}</x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-3">{!! formatRupiah($product->price) !!}</x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-3">
+                                    <span
+                                        class="bg-primary text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{ $product->status }}</span>
+                                </x-dashboard.table.row>
+                                <x-dashboard.table.row class="w-30 p-3">
+                                    @if ($product->stock >= 1)
+                                        <span
+                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Tersedia</span>
+                                    @else
+                                        <span
+                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Habis</span>
+                                    @endif
+                                </x-dashboard.table.row>
 
-                                <form wire:submit="updateProduct({{ $product->id }})" class="space-y-6">
-                                    <!-- Group 1: Informasi Utama -->
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <label class="block text-start mb-2 text-sm font-medium text-gray-700">Judul
-                                                Produk</label>
-                                            <input type="text" wire:model.live.debounce.300="title"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                                placeholder="Masukkan judul produk">
-                                            @error('title')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
+                                {{-- aksi --}}
+                                <x-dashboard.table.aksiTable :data="$product">
+                                    {{-- update data --}}
+                                    <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Edit Product
+                                    </h2>
 
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Slug</label>
-                                            <input type="text" wire:model="slug" readonly
-                                                class="border border-gray-300 bg-gray-160 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                                placeholder="slug-produk">
-                                            @error('slug')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Kategori</label>
-                                            <select wire:model="category"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
-                                                <option value="">Pilih Kategori</option>
-                                                @foreach ($categories as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->title }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('category')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Group 2: Harga, Stok, Status -->
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Harga</label>
-                                            <input type="number" wire:model="price"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                                placeholder="Masukkan harga">
-                                            @error('price')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Stok</label>
-                                            <input type="number" wire:model="stock"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                                placeholder="Jumlah stok">
-                                            @error('stock')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Status</label>
-                                            <select wire:model="status"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
-                                                <option value="">Pilih Status</option>
-                                                <option value="publish">Publish</option>
-                                                <option value="draft">Draft</option>
-                                            </select>
-                                            @error('status')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Group 3: Deskripsi dan Media -->
-                                    <div class="my-2 mb-6">
-                                        <div>
-                                            <label
-                                                class="block text-start mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
-                                            <textarea wire:model="desc" rows="4"
-                                                class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                                                placeholder="Tulis deskripsi produk..."></textarea>
-                                            @error('desc')
-                                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="space-y-4 flex gap-3">
-                                            <!-- Thumbnail Upload -->
-                                            <div class="w-full my-3">
+                                    <form wire:submit="updateProduct({{ $product->id }})" class="space-y-6">
+                                        <!-- Group 1: Informasi Utama -->
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
                                                 <label
-                                                    class="block mb-2 text-sm font-medium text-gray-700">Thumbnail</label>
-                                                <label
-                                                    class="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                                    <div class="flex flex-col items-center space-y-1">
-                                                        <i class="fa-solid fa-image text-3xl text-primary"></i>
-                                                        <span class="text-sm text-gray-600 font-medium">Pilih
-                                                            Thumbnail</span>
-                                                        <span class="text-xs text-gray-400">PNG, JPG, JPEG • Maks
-                                                            2MB</span>
-                                                    </div>
-                                                    <input type="file" wire:model="thumbnail" class="hidden" />
-                                                </label>
-                                                @error('thumbnail')
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Judul
+                                                    Produk</label>
+                                                <input type="text" wire:model.live.debounce.300="title"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                    placeholder="Masukkan judul produk">
+                                                @error('title')
                                                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                                 @enderror
-                                                @if ($thumbnail)
-                                                    @if (!is_string($thumbnail))
-                                                        <div class="w-16 h-16 rounded-md my-5">
-                                                            <img src="{{ $thumbnail->temporaryUrl() }}"
-                                                                alt="" loading="lazy"
-                                                                class="w-full h-full object-cover">
-                                                        </div>
-                                                    @else
-                                                        <div class="w-16 h-16 rounded-md my-5">
-                                                            <img src="{{ asset('storage/' . $thumbnail) }}"
-                                                                alt="" loading="lazy"
-                                                                class="w-full h-full object-cover">
-                                                        </div>
-                                                    @endif
-                                                @endif
                                             </div>
 
-
-                                            <!-- Multi Image Upload -->
-                                            <div class="w-full my-3">
-                                                <label class="block mb-2 text-sm font-medium text-gray-700">Gambar
-                                                    Slider</label>
+                                            <div>
                                                 <label
-                                                    class="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                                    <div class="flex flex-col items-center space-y-1">
-                                                        <i class="fa-solid fa-images text-3xl text-primary"></i>
-                                                        <span class="text-sm text-gray-600 font-medium">Upload Beberapa
-                                                            Gambar</span>
-                                                        <span class="text-xs text-gray-400">Dapat pilih banyak
-                                                            file</span>
-                                                    </div>
-                                                    <input type="file" wire:model.live="images" multiple
-                                                        class="hidden" />
-                                                </label>
-                                                @error('images')
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Slug</label>
+                                                <input type="text" wire:model="slug" readonly
+                                                    class="border border-gray-300 bg-gray-160 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                    placeholder="slug-produk">
+                                                @error('slug')
                                                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                                 @enderror
-                                                @if ($images)
-                                                    @if (!is_array($images))
-                                                        <div class="flex gap-2 flex-wrap my-5">
-                                                            @foreach ($images as $image)
-                                                                <div class="w-16 h-16 rounded-md">
-                                                                    <img src="{{ $image->temporaryUrl() }}"
-                                                                        alt="" loading="lazy"
-                                                                        class="w-full h-full object-cover">
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @else
-                                                        <div class="flex gap-2 flex-wrap my-5">
-                                                            @foreach ($images as $image)
-                                                                <div class="w-16 h-16 rounded-md">
-                                                                    <img src="{{ asset('storage/' . $image) }}"
-                                                                        alt="" loading="lazy"
-                                                                        class="w-full h-full object-cover">
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                @endif
+                                            </div>
+
+                                            <div>
+                                                <label
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Kategori</label>
+                                                <select wire:model="category"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+                                                    <option value="">Pilih Kategori</option>
+                                                    @foreach ($categories as $cat)
+                                                        <option value="{{ $cat->id }}">{{ $cat->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category')
+                                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Tombol Aksi -->
-                                    <div class="flex justify-end space-x-3 pt-4 border-t">
-                                        <button type="submit"
-                                            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition">
-                                            <i class="fa-solid fa-pen-to-square me-1"></i> Update
-                                        </button>
-                                    </div>
-                                </form>
-                            </x-dashboard.table.aksiTable>
-                        </tr>
-                    @empty
-                        <tr>
-                            <x-dashboard.table.row colspan="10">
-                                <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
-                            </x-dashboard.table.row>
-                        </tr>
-                    @endforelse
-                </x-dashboard.table.tableTbody>
-            </x-dashboard.table.table>
+                                        <!-- Group 2: Harga, Stok, Status -->
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <label
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Harga</label>
+                                                <input type="number" wire:model="price"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                    placeholder="Masukkan harga">
+                                                @error('price')
+                                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div>
+                                                <label
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Stok</label>
+                                                <input type="number" wire:model="stock"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                    placeholder="Jumlah stok">
+                                                @error('stock')
+                                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div>
+                                                <label
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Status</label>
+                                                <select wire:model="status"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+                                                    <option value="">Pilih Status</option>
+                                                    <option value="publish">Publish</option>
+                                                    <option value="draft">Draft</option>
+                                                </select>
+                                                @error('status')
+                                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Group 3: Deskripsi dan Media -->
+                                        <div class="my-2 mb-6">
+                                            <div>
+                                                <label
+                                                    class="block text-start mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
+                                                <textarea wire:model="desc" rows="4"
+                                                    class="border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                                    placeholder="Tulis deskripsi produk..."></textarea>
+                                                @error('desc')
+                                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="space-y-4 flex gap-3">
+                                                <!-- Thumbnail Upload -->
+                                                <div class="w-full my-3">
+                                                    <label
+                                                        class="block mb-2 text-sm font-medium text-gray-700">Thumbnail</label>
+                                                    <label
+                                                        class="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                                        <div class="flex flex-col items-center space-y-1">
+                                                            <i class="fa-solid fa-image text-3xl text-primary"></i>
+                                                            <span class="text-sm text-gray-600 font-medium">Pilih
+                                                                Thumbnail</span>
+                                                            <span class="text-xs text-gray-400">PNG, JPG, JPEG • Maks
+                                                                2MB</span>
+                                                        </div>
+                                                        <input type="file" wire:model="thumbnail"
+                                                            class="hidden" />
+                                                    </label>
+                                                    @error('thumbnail')
+                                                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                    @enderror
+                                                    @if ($thumbnail)
+                                                        @if (!is_string($thumbnail))
+                                                            <div class="w-16 h-16 rounded-md my-5">
+                                                                <img src="{{ $thumbnail->temporaryUrl() }}"
+                                                                    alt="" loading="lazy"
+                                                                    class="w-full h-full object-cover">
+                                                            </div>
+                                                        @else
+                                                            <div class="w-16 h-16 rounded-md my-5">
+                                                                <img src="{{ asset('storage/' . $thumbnail) }}"
+                                                                    alt="" loading="lazy"
+                                                                    class="w-full h-full object-cover">
+                                                            </div>
+                                                        @endif
+                                                    @endif
+                                                </div>
+
+
+                                                <!-- Multi Image Upload -->
+                                                <div class="w-full my-3">
+                                                    <label class="block mb-2 text-sm font-medium text-gray-700">Gambar
+                                                        Slider</label>
+                                                    <label
+                                                        class="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                                        <div class="flex flex-col items-center space-y-1">
+                                                            <i class="fa-solid fa-images text-3xl text-primary"></i>
+                                                            <span class="text-sm text-gray-600 font-medium">Upload
+                                                                Beberapa
+                                                                Gambar</span>
+                                                            <span class="text-xs text-gray-400">Dapat pilih banyak
+                                                                file</span>
+                                                        </div>
+                                                        <input type="file" wire:model.live="images" multiple
+                                                            class="hidden" />
+                                                    </label>
+                                                    @error('images')
+                                                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                                    @enderror
+                                                    @if ($images)
+                                                        @if (!is_array($images))
+                                                            <div class="flex gap-2 flex-wrap my-5">
+                                                                @foreach ($images as $image)
+                                                                    <div class="w-16 h-16 rounded-md">
+                                                                        <img src="{{ $image->temporaryUrl() }}"
+                                                                            alt="" loading="lazy"
+                                                                            class="w-full h-full object-cover">
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @else
+                                                            <div class="flex gap-2 flex-wrap my-5">
+                                                                @foreach ($images as $image)
+                                                                    <div class="w-16 h-16 rounded-md">
+                                                                        <img src="{{ asset('storage/' . $image) }}"
+                                                                            alt="" loading="lazy"
+                                                                            class="w-full h-full object-cover">
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="flex justify-end space-x-3 pt-4 border-t">
+                                            <button type="submit"
+                                                class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition">
+                                                <i class="fa-solid fa-pen-to-square me-1"></i> Update
+                                            </button>
+                                        </div>
+                                    </form>
+                                </x-dashboard.table.aksiTable>
+                            </tr>
+                        @empty
+                            <tr>
+                                <x-dashboard.table.row colspan="10">
+                                    <p class="text-semibold text-slate-400 text-center my-2">Data tidak ada</p>
+                                </x-dashboard.table.row>
+                            </tr>
+                        @endforelse
+                    </x-dashboard.table.tableTbody>
+                </x-dashboard.table.table>
+            </div>
 
             <div class="mt-4">
                 {{ $products->links('components.custom-pagination') }}

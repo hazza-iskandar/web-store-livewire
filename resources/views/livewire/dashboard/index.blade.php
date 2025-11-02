@@ -15,9 +15,10 @@
 
             {{-- <x-dashboard.start-card title="Total Pemasukan" value="0" icon="fas fa-shopping-ca" color="text-blue-600"/> --}}
         </div>
-        <div class="flex gap-5 mt-4 w-full">
+
+        <div class="flex flex-col md:flex-row gap-5 mt-4 w-full">
             {{-- CHART SECTION (sementara dikomentari) --}}
-            <div class="w-full md:w-1/2 flex flex-col lg:flex-row gap-4" wire:ignore>
+            <div class="w-full lg:w-1/2 flex flex-col lg:flex-row gap-4" wire:ignore>
                 <div class="bg-white rounded-2xl shadow p-4 flex-1">
                     <h3 class="text-lg font-semibold text-gray-700 mb-2">Chart Harian</h3>
                     <canvas id="orderChart" class="w-full h-full"></canvas>
@@ -25,7 +26,7 @@
             </div>
 
             {{-- PRODUCT STOCK SECTION --}}
-            <div class="w-full md:w-1/2 bg-white rounded-2xl shadow p-4">
+            <div class="w-full lg:w-1/2 bg-white rounded-2xl shadow p-4 overflow-x-auto">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-4">Stock Barang</h3>
                     <a href="{{ route('dashboard.products.index') }}"
@@ -127,8 +128,8 @@
                                 <x-dashboard.table.headField name="Nama Barang" />
                                 <x-dashboard.table.headField name="Jumlah" />
                                 <x-dashboard.table.headField name="Harga" />
-                                <x-dashboard.table.headField name="Status" />
-                                <x-dashboard.table.headField name="Status Stock" />
+                                <x-dashboard.table.headField name="Total Harga" />
+                                <x-dashboard.table.headField name="Status Order" />
                                 <x-dashboard.table.headField name="Kode Order" />
                                 <x-dashboard.table.headField name="Tangal" />
                             </x-dashboard.table.tableThead>
@@ -139,8 +140,8 @@
                                         <x-dashboard.table.row>{{ Str::words($order->product->title, '3', '...') }}</x-dashboard.table.row>
                                         <x-dashboard.table.row
                                             class="w-30 p-3">{{ $order->qty }}x</x-dashboard.table.row>
-                                        <x-dashboard.table.row>{{ $order->price }}</x-dashboard.table.row>
-                                        <x-dashboard.table.row>{{ $order->total_price }}</x-dashboard.table.row>
+                                        <x-dashboard.table.row>{!! formatRupiah($order->price) !!}</x-dashboard.table.row>
+                                        <x-dashboard.table.row>{!! formatRupiah($order->total_price) !!}</x-dashboard.table.row>
                                         <x-dashboard.table.row>
                                             @if ($order->status == 'pending')
                                                 <span

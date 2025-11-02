@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/order-user', \App\Livewire\Account\OrderUser::class)->name('order-user');
     });
 
+    // dahsboard
     Route::middleware('is_admin')->prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', \App\Livewire\Dashboard\Dashboard::class)->name('index');
         Route::prefix('products')->name('products.')->group(function(){
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
         });
         Route::get('/categories', \App\Livewire\Dashboard\Categories\Index::class)->name('categories.index');
         Route::get('/hightlight-product', \App\Livewire\Dashboard\Hightlight\Index::class)->name('hightlight.index');
+        Route::get('/orders', \App\Livewire\Dashboard\Order\Index::class)->name('orders.index');
     });
 
     // cart

@@ -93,11 +93,14 @@
                                         <div class=" w-full md:w-80">
                                             <p class="text-sm md:text-base font-medium text-gray-800 truncate">
                                                 {{ $order->product->title }}</p>
-                                            <p class="text-xs md:text-sm text-gray-500">x{{ $order->qty }}</p>
+                                            <div class="flex items-center gap-4">
+                                                <p class="text-xs md:text-sm text-gray-500">x{{ $order->qty }}</p>
+                                                <p class="text-sm md:text-base font-semibold text-gray-800">
+                                                    {!! formatRupiah($order->total_price) !!}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <p class="text-sm md:text-base font-semibold text-gray-800">{!! formatRupiah($order->total_price) !!}
-                                    </p>
                                 </div>
                             @endforeach
                         @else
@@ -109,11 +112,14 @@
                                     <div class=" w-full md:w-80">
                                         <p class="text-sm md:text-base font-medium text-gray-800 truncate">
                                             {{ $orders[0]->product->title }}</p>
-                                        <p class="text-xs md:text-sm text-gray-500">x{{ $orders[0]->qty }}</p>
+                                        <div class="flex items-center gap-4">
+                                            <p class="text-xs md:text-sm text-gray-500">x{{ $orders[0]->qty }}</p>
+                                            <p class="text-sm md:text-base font-semibold text-gray-800">
+                                                {!! formatRupiah($orders[0]->total_price) !!}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="text-sm md:text-base font-semibold text-gray-800">{!! formatRupiah($orders[0]->total_price) !!}
-                                </p>
                             </div>
                         @endif
                     </div>
@@ -130,7 +136,9 @@
                             Buat Pesanan
                         </button>
                     @else
-                    <p class="text-center mt-4 text-slate-400 font-normal ">Harap Lengkapi Profile Anda Sebelum Memesan <a href="{{ route('account.profile') }}" class="font-bold underline">Disini!</a></p>
+                        <p class="text-center mt-4 text-slate-400 font-normal ">Harap Lengkapi Profile Anda Sebelum
+                            Memesan <a href="{{ route('account.profile') }}" class="font-bold underline">Disini!</a>
+                        </p>
                     @endif
                 </div>
             </form>
