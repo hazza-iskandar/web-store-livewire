@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('order_code')->unique();
             $table->string('order_code_group')->nullable();
             $table->date('date');
+            $table->text('snap_token')->nullable();
             $table->timestamps();
         });
     }

@@ -18,15 +18,15 @@ class Dashboard extends Component
     {
         $dates = [];
         $orders = [];
-        for ($i = 1; $i <= 7; $i++) {
+        for ($i = 0; $i <= 6; $i++) {
             $date = Carbon::now()->subDays($i);
             $orders[] = Order::where('status', 'paid')
-                ->whereDate('date', $date->toDateString())
+                ->where('date', $date->toDateString())
                 ->count();
-            $dates[] = date_format($date, 'Y M d');
-        }
-        $this->labels = array_reverse($dates);
-        $this->chartOrders = array_reverse($orders);
+                $dates[] = date_format($date, 'Y M d');
+            }
+            $this->labels = array_reverse($dates);
+            $this->chartOrders = array_reverse($orders);
     }
 
     // untuk edit

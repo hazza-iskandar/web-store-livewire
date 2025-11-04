@@ -5,11 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 // route home utama
 Route::get('/', \App\Livewire\Home::class)->name('home');
-Route::get('/test_env', function(){
-    return config('midtrans') ?? 'null';
-});
-
-
 
 // untuk login
 Route::middleware('guest')->group(function () {
@@ -42,6 +37,7 @@ Route::middleware('auth')->group(function () {
     // cart
     Route::get('/cart', \App\Livewire\Cart\Cart::class)->name('cart');
     Route::get('/order/{codeOrder}', \App\Livewire\Order\Order::class)->name('order');
+    Route::get('/invoice/success/{code}', \App\Livewire\Order\OrderSuccess::class)->name('order.success');
 });
 
 // route product

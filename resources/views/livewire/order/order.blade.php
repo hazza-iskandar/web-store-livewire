@@ -144,11 +144,10 @@
             </form>
         </div>
     </section>
-
     <div id="snap-container" class="fixed top-10 z-9999 flex justify-center "></div>
 </div>
 {{-- midtrans payment gateaway --}}
-{{-- <script>
+<script>
     function runMidtrans() {
         var payButton = document.getElementById('pay-button');
 
@@ -156,16 +155,45 @@
             // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token.
             // Also, use the embedId that you defined in the div above, here.
             window.snap.pay('{{ $snapToken }}', {
-                // onpendign
-                onPending: function(result) {
-                    /* You may add your own implementation here */
-                    console.log(result);
+                onSuccess: function(result) {
+                    // contoh: kirim ke server untuk update status
+                    // window.location.href = '/order/success';
+                    fetch('{{ url('/api/midtrans-callback') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(result)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // console.log('Response dari API:', data);
+                            window.location.href = '/invoice/success/' + data.order_code
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
                 },
+                onPending: function(result) {
+                    console.log('🕒 Menunggu pembayaran');
+                    // bisa redirect ke halaman pending
+                    window.location.href = '{{ route('account.order-user') }}';
+                },
+                onError: function(result) {
+                    console.log('❌ Terjadi error:', result);
+                    alert('Pembayaran gagal, silakan coba lagi.');
+                },
+                onClose: function() {
+                    console.log('❌ Pembayaran dibatalkan oleh pengguna');
+                    // alert('Kamu menutup popup tanpa menyelesaikan pembayaran.');
+                }
             });
         });
     }
     // jalankan fungsi midtrans ketika livewire siap
-    document.addEventListener('livewire:navigated', runMidtrans())
-</script> --}}
+    document.addEventListener('DOMContentLoaded', runMidtrans)
+    document.addEventListener('livewire:navigated', runMidtrans)
+</script>
 
 </div>

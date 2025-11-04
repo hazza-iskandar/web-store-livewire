@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
         
-        // Category::factory(3)->create();
-        // Product::factory(100)->create();
-        // Banner::factory(8)->create();
+        Category::factory(3)->create();
+        Product::factory(100)->create();
+        Banner::factory(8)->create();
     }
 }

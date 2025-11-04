@@ -11,14 +11,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/swiper/swiper-bundle.min.css') }}">
 
 {{-- tailwind --}}
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-{{-- <link rel="stylesheet" href="{{ asset() }}">
-<script src="{{ asset() }}"></script> --}}
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+<link rel="stylesheet" href="{{ asset('build/assets/app-CwW7M1HT.css') }}">
+<script src="{{ asset('build/assets/app-6i-whGyN.js') }}"></script>
 
-{{-- midtrans payment gateaway --}}
-{{-- buat production --}}
-{{-- <script type="text/javascript" src="https://app.stg.midtrans.com/snap/snap.js"
-        data-client-key="{{ config('midtrans.midtrans_client_key') }}"></script> --}}
-{{-- buat sandbox --}}
-{{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-    data-client-key="{{ config('midtrans.midtrans_client_key') }}"></script> --}}

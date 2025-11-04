@@ -79,7 +79,7 @@
                             <div class="flex gap-2 justify-end items-center my-3" x-data="{ openDeleteModal: false, openCanceledModal:false }">
 
                                 @if ($order->status == 'pending')
-                                    <a href="{{ route('order', $order->order_code_group ?? $order->order_code) }}"
+                                    <a href="{{ route('order', $order->order_code_group ?? $order->order_code) }}" wire:navigate
                                         class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-3 py-2 text-center">
                                         Bayar Sekarang
                                     </a>

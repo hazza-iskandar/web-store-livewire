@@ -290,6 +290,7 @@ class Index extends Component
         $product->slug = $slug;
         $product->category_id = $this->category;
         $product->stock = $this->stock;
+        $product->price = $this->price;
         $product->status = $this->status;
         $product->desc = $this->desc;
         $product->thumbnail = $pathThumbnail;

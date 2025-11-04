@@ -55,21 +55,26 @@
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
-
                     <div class="w-full sm:w-1/2 sm:ms-8 ">
                         <div class="pb-4 border-b-3 border-slate-600">
                             <h1 class="font-heading text-2xl sm:text-3xl mb-1">{{ $product->title }}</h1>
                             <a href="{{ route('products.index', ['category' => $product->category->slug]) }}"
                                 class="sm:text-[16px] text-sm me-4" wire:navigate>{{ $product->category->title }}</a>
-                            <span
-                                class="text-white bg-green-100 {{ $product->stock == 0 ? 'bg-red-600' : 'bg-green-700' }} text-xs sm:text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm">Stok
-                                tersedia {{ $product->stock }}</span>
+                            @if ($product->stock >= 0)
+                                <span
+                                    class="text-white bg-green-700 text-xs sm:text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm">Stok
+                                    tersedia {{ $product->stock }}</span>
+                            @else
+                                <span
+                                    class="text-white bg-red-700 text-xs sm:text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm">Stok
+                                    Habis</span>
+                            @endif
 
                             <p class="mt-2 text-primary text-xl sm:text-2xl">
                                 {!! formatRupiah($product->price) !!}</p>
                             <p class="text-slate-700 mt-2 sm:mt-4 sm:text-[16px] text-sm">{{ $product->desc }}</p>
                         </div>
-                        @if (!$product->stock == 0 || !empty($product->stock))
+                        @if ($product->stock >= 0 && !empty($product->stock))
                             <div class="mt-5 flex gap-3">
                                 <button wire:click='checkOut({{ $product->id }})' wire:loading.attr='disabled'
                                     class="text-white inline-block mt-3 w-full bg-primary hover:bg-slate-800 focus:outline-none text-sm sm:text-lg focus:ring-4 focus:ring-blue-300 font-medium rounded-sm px-3 py-1.5 sm:px-5 sm:py-2.5 text-center me-2 mb-2">

@@ -43,6 +43,7 @@ class OrderUser extends Component
         $orders = Order::with('product.category')
             ->where('user_id', $userId)
             ->where('status', $this->status)
+            ->latest()
             ->get()
             ->groupBy(function ($order) {
                 return $order->order_code_group ?? $order->order_code;
